@@ -1,0 +1,14 @@
+<div class="w-100-p h-100-p" fxLayout="column" fxLayoutAlign="start streych">
+  <div class="w-100-p pthr-table-menu-row mat-elevation-z1" fxLayout="row" fxLayoutAlign="start center">
+    <button mat-button>
+      Filter
+    </button>
+    <span fxFlex=""></span>
+  </div>
+  <div class="">
+    <ngx-datatable class="material" [rows]="genes" [columns]="columns" [loadingIndicator]="loadingIndicator"
+      [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="60" [scrollbarH]="true" [reorderable]="reorderable"
+      [selectionType]="'checkbox'" [limit]="10">
+    </ngx-datatable>
+  </div>
+</div>
