@@ -11,7 +11,7 @@ export class FakeDbService implements InMemoryDbService {
     createDb(): any {
         return {
             'annotation-list': AnnotationTreeFakeDb.data,
-            'snp-result0': SnpResultFakeDb.data
+            'snp-result': SnpResultFakeDb.data
         };
     }
 }
