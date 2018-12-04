@@ -1,18 +1,18 @@
-@import "src/@panther/scss/panther";
-@import "src/@panther.common/scss/panther.common";
+@import "src/@noctua/scss/noctua";
+@import "src/@noctua.common/scss/noctua.common";
 
 :host {
   width: 100%;
 
-  .pthr-sidenav {
+  .noc-sidenav {
     width: 200px;
 
-    .pthr-nav-button {
+    .noc-nav-button {
       padding: 0 12px;
       @include deep-height(50px);
       border-bottom: #CCC solid 1px;
 
-      &.pthr-selected {
+      &.noc-selected {
         background-color: #DDD;
         font-weight: bold;
       }
@@ -24,7 +24,7 @@
   }
 }
 
-.pthr-search-form {
+.noc-search-form {
   padding: 15px;
   @include deep-width(500px);
 }

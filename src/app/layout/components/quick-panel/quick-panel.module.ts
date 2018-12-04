@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatDividerModule, MatListModule, MatSlideToggleModule } from '@angular/material';
 
-import { PantherSharedModule } from '@panther/shared.module';
+import { NoctuaSharedModule } from '@noctua/shared.module';
 
 import { QuickPanelComponent } from 'app/layout/components/quick-panel/quick-panel.component';
 
@@ -14,7 +14,7 @@ import { QuickPanelComponent } from 'app/layout/components/quick-panel/quick-pan
         MatListModule,
         MatSlideToggleModule,
 
-        PantherSharedModule,
+        NoctuaSharedModule,
     ],
     exports: [
         QuickPanelComponent

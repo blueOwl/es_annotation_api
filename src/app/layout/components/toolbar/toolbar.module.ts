@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule, MatIconModule, MatMenuModule, MatProgressBarModule, MatToolbarModule } from '@angular/material';
-import { PantherSharedModule } from '@panther/shared.module';
-import { PantherToolbarComponent } from './toolbar.component';
+import { NoctuaSharedModule } from '@noctua/shared.module';
+import { NoctuaToolbarComponent } from './toolbar.component';
 
 @NgModule({
     declarations: [
-        PantherToolbarComponent
+        NoctuaToolbarComponent
     ],
     imports: [
         RouterModule,
@@ -15,12 +15,12 @@ import { PantherToolbarComponent } from './toolbar.component';
         MatMenuModule,
         MatProgressBarModule,
         MatToolbarModule,
-        PantherSharedModule,
+        NoctuaSharedModule,
     ],
     exports: [
-        PantherToolbarComponent
+        NoctuaToolbarComponent
     ]
 })
 
-export class PantherToolbarModule {
+export class NoctuaToolbarModule {
 }

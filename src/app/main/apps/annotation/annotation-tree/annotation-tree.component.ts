@@ -9,13 +9,13 @@ import { takeUntil } from 'rxjs/operators';
 
 import { Annotation, AnnotationNode, AnnotationFlatNode } from './../models/annotation'
 
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
+import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 import { AnnotationService } from './../services/annotation.service';
 import { SnpService } from './../../snp/services/snp.service'
 
 
 @Component({
-  selector: 'pthr-annotation-tree',
+  selector: 'noc-annotation-tree',
   templateUrl: './annotation-tree.component.html',
   styleUrls: ['./annotation-tree.component.scss'],
 })
@@ -36,7 +36,7 @@ export class AnnotationTreeComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    public pantherMenuService: PantherMenuService,
+    public noctuaMenuService: NoctuaMenuService,
     private annotationService: AnnotationService,
     private snpService: SnpService,
     private renderer: Renderer2, ) {
@@ -46,7 +46,7 @@ export class AnnotationTreeComponent implements OnInit {
     this.treeControl = new FlatTreeControl<AnnotationFlatNode>(this._getLevel, this._isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    console.log(this.pantherMenuService.pantherTypes)
+    console.log(this.noctuaMenuService.noctuaTypes)
     this._unsubscribeAll = new Subject();
 
   }

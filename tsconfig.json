@@ -9,11 +9,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
-      "@panther": [
-        "@panther/"
+      "@noctua": [
+        "@noctua/"
       ],
-      "@panther.common": [
-        "@panther.common"
+      "@noctua.common": [
+        "@noctua.common"
       ],
     },
     "target": "es5",

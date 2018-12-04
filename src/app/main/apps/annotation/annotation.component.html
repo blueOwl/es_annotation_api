@@ -12,9 +12,9 @@
     </button>
     <button mat-button [matMenuTriggerFor]="changeView">Change</button>
     <mat-menu #changeView="matMenu">
-      <button mat-menu-item *ngFor="let browserOntologyType of pantherMenuService.pantherTypes.browserOntologyTypes">
+      <button mat-menu-item *ngFor="let browserOntologyType of noctuaMenuService.noctuaTypes.browserOntologyTypes">
         {{browserOntologyType.label}}</button>
     </mat-menu>
   </div>
-  <pthr-annotation-tree class="h-100-p w-100-p"></pthr-annotation-tree>
+  <noc-annotation-tree class="h-100-p w-100-p"></noc-annotation-tree>
 </div>

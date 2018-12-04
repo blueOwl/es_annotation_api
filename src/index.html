@@ -3,12 +3,12 @@
 
 <head>
 
-  <title>Panther</title>
+  <title>Noctua</title>
   <base href="/">
 
   <meta charset="utf-8">
-  <meta name="description" content="Panther Template">
-  <meta name="keywords" content="Panther">
+  <meta name="description" content="Noctua Template">
+  <meta name="keywords" content="Noctua">
   <meta name="author" content="Gene Ontology">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 
   <style type="text/css">
-    #panther-splash-screen {
+    #noctua-splash-screen {
       display: block;
       position: absolute;
       top: 0;
@@ -29,7 +29,7 @@
       pointer-events: none;
     }
 
-    #panther-splash-screen .center {
+    #noctua-splash-screen .center {
       display: block;
       width: 100%;
       position: absolute;
@@ -37,16 +37,16 @@
       transform: translateY(-50%);
     }
 
-    #panther-splash-screen .logo {
+    #noctua-splash-screen .logo {
       width: 128px;
       margin: 0 auto;
     }
 
-    #panther-splash-screen .logo img {
+    #noctua-splash-screen .logo img {
       filter: drop-shadow(0px 10px 6px rgba(0, 0, 0, 0.2))
     }
 
-    #panther-splash-screen .spinner-wrapper {
+    #noctua-splash-screen .spinner-wrapper {
       display: block;
       position: relative;
       width: 100%;
@@ -54,7 +54,7 @@
       height: 100px;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner {
+    #noctua-splash-screen .spinner-wrapper .spinner {
       position: absolute;
       overflow: hidden;
       left: 50%;
@@ -62,14 +62,14 @@
       animation: outer-rotate 2.91667s linear infinite;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner {
+    #noctua-splash-screen .spinner-wrapper .spinner .inner {
       width: 100px;
       height: 100px;
       position: relative;
       animation: sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .gap {
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .gap {
       position: absolute;
       left: 49px;
       right: 49px;
@@ -79,8 +79,8 @@
       box-sizing: border-box;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .left,
-    #panther-splash-screen .spinner-wrapper .spinner .inner .right {
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .left,
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .right {
       position: absolute;
       top: 0;
       height: 100px;
@@ -88,8 +88,8 @@
       overflow: hidden;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .left .half-circle,
-    #panther-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .left .half-circle,
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
       position: absolute;
       top: 0;
       width: 100px;
@@ -100,22 +100,22 @@
       border-radius: 50%;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .left {
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .left {
       left: 0;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .left .half-circle {
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .left .half-circle {
       left: 0;
       border-right-color: transparent;
       animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
       -webkit-animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .right {
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .right {
       right: 0;
     }
 
-    #panther-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
+    #noctua-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
       right: 0;
       border-left-color: transparent;
       animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
@@ -126,26 +126,31 @@
       0% {
         transform: rotate(0deg) scale(0.5);
       }
+
       100% {
         transform: rotate(360deg) scale(0.5);
       }
     }
 
     @keyframes left-wobble {
+
       0%,
       100% {
         transform: rotate(130deg);
       }
+
       50% {
         transform: rotate(-5deg);
       }
     }
 
     @keyframes right-wobble {
+
       0%,
       100% {
         transform: rotate(-130deg);
       }
+
       50% {
         transform: rotate(5deg);
       }
@@ -155,24 +160,31 @@
       12.5% {
         transform: rotate(135deg);
       }
+
       25% {
         transform: rotate(270deg);
       }
+
       37.5% {
         transform: rotate(405deg);
       }
+
       50% {
         transform: rotate(540deg);
       }
+
       62.5% {
         transform: rotate(675deg);
       }
+
       75% {
         transform: rotate(810deg);
       }
+
       87.5% {
         transform: rotate(945deg);
       }
+
       100% {
         transform: rotate(1080deg);
       }
@@ -182,7 +194,7 @@
 </head>
 
 <body class="">
-  <panther-splash-screen id="panther-splash-screen">
+  <noctua-splash-screen id="noctua-splash-screen">
     <div class="center">
       <div class="logo">
         <img width="128" src="assets/images/logos/go-logo.png">
@@ -201,8 +213,8 @@
         </div>
       </div>
     </div>
-  </panther-splash-screen>
-  <panther-root></panther-root>
+  </noctua-splash-screen>
+  <noctua-root></noctua-root>
 </body>
 
 </html>

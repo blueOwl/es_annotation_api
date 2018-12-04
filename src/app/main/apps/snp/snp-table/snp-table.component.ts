@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
+import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 
 import { SnpService } from './../services/snp.service'
 @Component({
@@ -23,7 +23,7 @@ export class SnpTableComponent implements OnInit {
 
   constructor(
     private _httpClient: HttpClient,
-    public pantherMenuService: PantherMenuService,
+    public noctuaMenuService: NoctuaMenuService,
     private snpService: SnpService
   ) {
     this.loadingIndicator = false;

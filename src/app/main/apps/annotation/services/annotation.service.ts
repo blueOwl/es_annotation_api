@@ -29,6 +29,9 @@ export class AnnotationService {
         //this.activeAnnotation = "LUCA";
     }
 
+    "api/region/chr/1/start/3/end/2"
+    "api/region?chr=1&start=3&end=2&header_idx=1 2 3"
+
     getAnnotationList() {
         let api = environment.annotationTreeApi
         this.httpClient.get<Annotation[]>('api/annotation-list')

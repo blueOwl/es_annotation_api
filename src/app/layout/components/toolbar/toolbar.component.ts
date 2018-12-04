@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { PantherConfigService } from '@panther/services/config.service';
+import { NoctuaConfigService } from '@noctua/services/config.service';
 
 @Component({
-    selector: 'panther-toolbar',
+    selector: 'noctua-toolbar',
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss']
 })
 
-export class PantherToolbarComponent {
+export class NoctuaToolbarComponent {
     userStatusOptions: any[];
     languages: any;
     selectedLanguage: any;
@@ -23,7 +23,7 @@ export class PantherToolbarComponent {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private pantherConfig: PantherConfigService,
+        private noctuaConfig: NoctuaConfigService,
         private translate: TranslateService
     ) {
         console.log(window.location)
@@ -44,7 +44,7 @@ export class PantherToolbarComponent {
             .subscribe(params => {
                 // Defaults to 0 if no query param provided.
                 let baristaToken = params['barista_token'] || 0;
-                pantherConfig.baristaToken = baristaToken;
+                noctuaConfig.baristaToken = baristaToken;
             });
 
         this.router.events.subscribe(

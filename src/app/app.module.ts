@@ -6,14 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { FakeDbService } from '@panther/fakedb/services/fake-db.service';
+import { FakeDbService } from '@noctua.common/fakedb/services/fake-db.service';
 import 'hammerjs';
 import { MatSidenavModule } from '@angular/material';
-import { PantherModule } from '@panther/panther.module';
-import { PantherProgressBarModule } from '@panther/components';
+import { NoctuaModule } from '@noctua/noctua.module';
+import { NoctuaProgressBarModule } from '@noctua/components';
 
-import { PantherSharedModule } from '@panther/shared.module';
-import { pantherConfig } from './panther-config';
+import { NoctuaSharedModule } from '@noctua/shared.module';
+import { noctuaConfig } from './noctua-config';
 import { AppComponent } from './app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 
@@ -39,19 +39,19 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes),
         TranslateModule.forRoot(),
 
-        // Panther Main and Shared modules
-        PantherModule.forRoot(pantherConfig),
+        // Noctua Main and Shared modules
+        NoctuaModule.forRoot(noctuaConfig),
         InMemoryWebApiModule.forRoot(FakeDbService, {
             delay: 0,
             passThruUnknownUrl: true
         }),
-        PantherSharedModule,
+        NoctuaSharedModule,
         LayoutModule,
         RouterModule,
         MatSidenavModule,
-        PantherProgressBarModule,
+        NoctuaProgressBarModule,
 
-        //Panther App
+        //Noctua App
         PagesModule,
         AppsModule
     ],

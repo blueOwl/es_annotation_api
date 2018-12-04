@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PantherMenuService } from '@panther.common/services/panther-menu.service';
+import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 
 @Component({
   selector: 'ann-annotation',
@@ -8,7 +8,7 @@ import { PantherMenuService } from '@panther.common/services/panther-menu.servic
 })
 export class AnnotationComponent implements OnInit {
 
-  constructor(public pantherMenuService: PantherMenuService) { }
+  constructor(public noctuaMenuService: NoctuaMenuService) { }
 
   ngOnInit() {
   }

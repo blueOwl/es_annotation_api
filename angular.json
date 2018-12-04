@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "panther": {
+    "noctua": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -55,11 +55,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "panther:build"
+            "browserTarget": "noctua:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "panther:build:production"
+              "browserTarget": "noctua:build:production"
             },
             "hmr": {
               "hmr": true,
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "panther:build"
+            "browserTarget": "noctua:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "panther-e2e": {
+    "noctua-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -115,7 +115,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "panther:serve"
+            "devServerTarget": "noctua:serve"
           }
         },
         "lint": {
@@ -130,5 +130,5 @@
       }
     }
   },
-  "defaultProject": "panther"
+  "defaultProject": "noctua"
 }

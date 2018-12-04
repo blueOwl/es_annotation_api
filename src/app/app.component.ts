@@ -4,37 +4,37 @@ import { Platform } from '@angular/cdk/platform';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { PantherConfigService } from '@panther/services/config.service';
+import { NoctuaConfigService } from '@noctua/services/config.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PantherSplashScreenService } from '@panther/services/splash-screen.service';
-import { PantherTranslationLoaderService } from '@panther/services/translation-loader.service';
+import { NoctuaSplashScreenService } from '@noctua/services/splash-screen.service';
+import { NoctuaTranslationLoaderService } from '@noctua/services/translation-loader.service';
 
 
 @Component({
-    selector: 'panther-root',
+    selector: 'noctua-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, OnDestroy {
-    pantherConfig: any;
+    noctuaConfig: any;
     navigation: any;
 
     private _unsubscribeAll: Subject<any>;
 
     constructor(
         private translate: TranslateService,
-        private pantherSplashScreen: PantherSplashScreenService,
-        private pantherTranslationLoader: PantherTranslationLoaderService,
+        private noctuaSplashScreen: NoctuaSplashScreenService,
+        private noctuaTranslationLoader: NoctuaTranslationLoaderService,
         private _renderer: Renderer2,
         private _elementRef: ElementRef,
-        private pantherConfigService: PantherConfigService,
+        private noctuaConfigService: NoctuaConfigService,
         private platform: Platform,
         @Inject(DOCUMENT) private document: any
     ) {
         this.translate.addLangs(['en', 'tr']);
         this.translate.setDefaultLang('en');
-        this.pantherTranslationLoader.loadTranslations();
+        this.noctuaTranslationLoader.loadTranslations();
         this.translate.use('en');
 
         if (this.platform.ANDROID || this.platform.IOS) {
@@ -45,10 +45,10 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.pantherConfigService.config
+        this.noctuaConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((config) => {
-                this.pantherConfig = config;
+                this.noctuaConfig = config;
             });
     }
 

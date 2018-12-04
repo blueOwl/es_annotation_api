@@ -1,8 +1,8 @@
-@import "src/@panther/scss/panther";
-@import "src/@panther.common/scss/panther.common";
+@import "src/@noctua/scss/noctua";
+@import "src/@noctua.common/scss/noctua.common";
 
 :host {
-  .pthr-table-menu-row {
+  .noc-table-menu-row {
     height: 60px;
   }
 }

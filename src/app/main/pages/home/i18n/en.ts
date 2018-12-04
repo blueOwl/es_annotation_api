@@ -2,7 +2,7 @@ export const locale = {
     lang: 'en',
     data: {
         'SAMPLE': {
-            'HELLO': 'Hello, Panther!'
+            'HELLO': 'Hello, Noctua!'
         }
     }
 };
