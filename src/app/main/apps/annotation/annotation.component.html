@@ -1,20 +1,35 @@
 <div class="h-100-p">
-  <div class="agb-column-toolbar w-100-p" fxLayout="row" fxLayoutAlign="start center">
-    <strong>
-      Annotation
-    </strong>
-    <span fxFlex></span>
-    <button mat-icon-button color='primary' matTooltip='Select ancestral genome by clicking on a node in the tree, to retrieve a list of protein-coding genes in that genome
-       (and their proxy genes in an extant genome).'
-      #tooltip="matTooltip" (mouseenter)="$event.stopImmediatePropagation()" (mouseleave)="$event.stopImmediatePropagation()"
-      (click)="tooltip.toggle()" matTooltipPosition='above' [matTooltipClass]="'tooltip'">
-      <mat-icon class="s-16">help</mat-icon>
-    </button>
-    <button mat-button [matMenuTriggerFor]="changeView">Change</button>
-    <mat-menu #changeView="matMenu">
-      <button mat-menu-item *ngFor="let browserOntologyType of noctuaMenuService.noctuaTypes.browserOntologyTypes">
-        {{browserOntologyType.label}}</button>
-    </mat-menu>
+
+  <div class="noc-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
+      <div class="noc-section-heading">
+        Configuration
+      </div>
+      <span fxFlex></span>
+    </div>
+    <div class="noc-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+      <form class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field class="mr-4" fxFlex="50">
+          <input matInput placeholder="Chr">
+        </mat-form-field>
+        <mat-form-field class=mr-4 fxFlex="25">
+          <input matInput placeholder="Start">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" fxFlex="25">
+          <input matInput placeholder="End">
+        </mat-form-field>
+      </form>
+    </div>
   </div>
-  <noc-annotation-tree class="h-100-p w-100-p"></noc-annotation-tree>
+  <div class="noc-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
+      <div class="noc-section-heading">
+        Select Annotations
+      </div>
+      <span fxFlex></span>
+    </div>
+    <div class="noc-section-body" fxLayout="column" fxLayoutAlign="start stretch">
+      <noc-annotation-tree class="h-100-p w-100-p"></noc-annotation-tree>
+    </div>
+  </div>
 </div>
