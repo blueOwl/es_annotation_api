@@ -5,7 +5,7 @@
       <mat-tree-node class="agb-tree-node text-truncate" *matTreeNodeDef="let node" (click)="selectAnnotation(node.short_name)"
         matTreeNodeToggle matTreeNodePadding matTreeNodePaddingIndent="10" [ngClass]="{ 'background-highlight': activeAnnotation === node.short_name }">
         <button mat-icon-button disabled class="agb-icon-button"></button>
-        <mat-checkbox class="checklist-leaf-node mr-8" [checked]="checklistSelection.isSelected(node)" (change)="todoLeafItemSelectionToggle(node)"></mat-checkbox>
+        <mat-checkbox class="checklist-leaf-node mr-8" [checked]="checklistSelection.isSelected(node)" (change)="annotationLeafItemSelectionToggle(node)"></mat-checkbox>
         {{node.name}}
         <span fxFlex></span>
         <diV class="" fxFlex="20px">
@@ -26,10 +26,12 @@
             signal_cellular_4_bar
           </mat-icon>
         </button>
-        <mat-checkbox class="checklist-leaf-node mr-8" [checked]="checklistSelection.isSelected(node)" (change)="todoLeafItemSelectionToggle(node)"></mat-checkbox>
+        <mat-checkbox class="mr-8" [checked]="descendantsAllSelected(node)" [indeterminate]="descendantsPartiallySelected(node)"
+          (change)="annotationItemSelectionToggle(node)"></mat-checkbox>
         {{node.name}}
         <span fxFlex></span>
-        <diV class="" fxFlex="20px">
+        <diV class="" fxFlex="
+          20px">
           <button mat-icon-button class="agb-icon-button" (click)="openAnnotationPreview(node.short_name)"
             [attr.aria-label]="Timescale">
             <mat-icon class="s-18">

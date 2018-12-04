@@ -113,7 +113,7 @@ export class AnnotationTreeComponent implements OnInit {
   }
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
-  todoItemSelectionToggle(node: AnnotationFlatNode): void {
+  annotationItemSelectionToggle(node: AnnotationFlatNode): void {
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
     this.checklistSelection.isSelected(node)
@@ -128,7 +128,7 @@ export class AnnotationTreeComponent implements OnInit {
   }
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
-  todoLeafItemSelectionToggle(node: AnnotationFlatNode): void {
+  annotationLeafItemSelectionToggle(node: AnnotationFlatNode): void {
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
   }
