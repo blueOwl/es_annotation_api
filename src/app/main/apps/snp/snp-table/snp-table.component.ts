@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import * as _ from 'lodash';
+
 import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 
 import { SnpService } from './../services/snp.service'
@@ -34,14 +36,21 @@ export class SnpTableComponent implements OnInit {
 
   ngOnInit(): void {
 
+    const self = this;
+
     this.columns = [];
 
     this.snpService.onSnpsChanged
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(data => {
-        if (data.columns) {
-          this.columns = data.columns.map(column => ({ prop: column }));
-          this.genes = data.rows;
+      .subscribe(response => {
+        if (response.header) {
+          this.columns = response.header.map(header => ({ prop: header }));
+          this.genes = _.map(response.data, (srcRow) => {
+            return srcRow.reduce((destRow, item, i) => {
+              destRow[response.header[i]] = item
+              return destRow
+            }, {});
+          });
         }
       });
   }

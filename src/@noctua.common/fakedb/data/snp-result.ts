@@ -92,8 +92,7 @@ export class SnpResultFakeDb {
         "Uniprot_acc": ".",
         "Uniprot_id": ".",
         "Uniprot_aapos": "."
-      },
-      {
+      }, {
         "#chr": 2,
         "pos": 100117,
         "ref": "A",
