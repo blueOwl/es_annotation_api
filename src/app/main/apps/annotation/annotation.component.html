@@ -1,5 +1,4 @@
 <div class="h-100-p">
-
   <div class="noc-form-section" fxLayout="column" fxLayoutAlign="start stretch">
     <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="noc-section-heading">
@@ -8,15 +7,18 @@
       <span fxFlex></span>
     </div>
     <div class="noc-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-      <form class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+      <form class="w-100-p" fxLayout="row" fxLayoutAlign="start center" name="annotationForm" [formGroup]="annotationForm">
         <mat-form-field class="mr-4" fxFlex="50">
-          <input matInput placeholder="Chr">
+          <mat-label>Chr</mat-label>
+          <input matInput formControlName="chrom" placeholder="Chromosome" />
         </mat-form-field>
         <mat-form-field class=mr-4 fxFlex="25">
-          <input matInput placeholder="Start">
+          <mat-label>Start</mat-label>
+          <input matInput formControlName="start" placeholder="Start">
         </mat-form-field>
         <mat-form-field class="example-full-width" fxFlex="25">
-          <input matInput placeholder="End">
+          <mat-label>End</mat-label>
+          <input matInput formControlName="end" placeholder="End">
         </mat-form-field>
       </form>
     </div>
@@ -29,7 +31,12 @@
       <span fxFlex></span>
     </div>
     <div class="noc-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-      <noc-annotation-tree class="h-100-p w-100-p"></noc-annotation-tree>
+      <noc-annotation-tree [checklistSelection]="checklistSelection" class="h-100-p w-100-p"></noc-annotation-tree>
     </div>
+  </div>
+
+  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+    <button (click)='clear()' type="button" mat-raised-button color="" class="mr-8">Clear</button>
+    <button (click)="submit()" type="button" mat-raised-button color="primary">Submit</button>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable, ViewChild, ViewChildren, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Injectable, ViewChild, ViewChildren, Renderer2, ElementRef } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -23,6 +23,9 @@ export class AnnotationTreeComponent implements OnInit {
   @ViewChild('tree') tree;
   @ViewChildren(MatTreeNode, { read: ElementRef }) treeNodes: ElementRef[];
 
+  @Input('checklistSelection')
+  public checklistSelection: SelectionModel<AnnotationFlatNode>;
+
   activeAnnotation: any;
   annotationList: AnnotationNode[];
 
@@ -30,7 +33,7 @@ export class AnnotationTreeComponent implements OnInit {
   treeFlattener: MatTreeFlattener<AnnotationNode, AnnotationFlatNode>;
   dataSource: MatTreeFlatDataSource<AnnotationNode, AnnotationFlatNode>;
 
-  checklistSelection = new SelectionModel<AnnotationFlatNode>(true);
+  // checklistSelection = new SelectionModel<AnnotationFlatNode>(true);
 
   private _unsubscribeAll: Subject<any>;
 
@@ -57,19 +60,14 @@ export class AnnotationTreeComponent implements OnInit {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(annotationTree => {
         this.annotationList = annotationTree;
-        //console.dir(this.annotationList);
-
         this.dataSource.data = this.annotationList;
-        //  this.activeAnnotation = this.annotationService.getActiveAnnotation();
-        //  this.tree.treeControl.expandAll();
-        // console.log(genes)
       });
 
     this.annotationService.getAnnotationList();
   }
 
   selectAnnotation(annotation) {
-    this.snpService.getSnps();
+    //do nothing for now
   }
 
   transformer = (node: AnnotationNode, level: number) => {
@@ -89,12 +87,6 @@ export class AnnotationTreeComponent implements OnInit {
   private _getChildren = (node: AnnotationNode): Observable<AnnotationNode[]> => observableOf(node.children);
 
   hasChild = (_: number, _nodeData: AnnotationFlatNode) => _nodeData.expandable;
-
-
-
-
-
-
 
 
   descendantsAllSelected(node: AnnotationFlatNode): boolean {

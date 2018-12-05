@@ -3,14 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-
-
-
 import 'rxjs/add/operator/map';
-
-import * as _ from 'lodash';
-import { ComponentFactoryResolver } from '@angular/core/src/render3';
-
 
 @Injectable({
     providedIn: 'root',
@@ -22,11 +15,13 @@ export class SnpService {
     }
 
 
+    getSnps(query) {
+        let url = environment.annotationApi + '/region';///?chrom=chr1&start=100000&end=200000&header_id=1%2022%203%204';
 
-    getSnps() {
-        let url = environment.annotationApi + '/region/?chrom=chr1&start=100000&end=200000&header_id=1%2022%203%204';
+        // let data = {limit: "2"};
+        //this.httpClient.get<any>(apiUrl, {params: data});
 
-        this.httpClient.get(url)
+        this.httpClient.get(url, { params: query })
             .subscribe((response) => {
                 this.onSnpsChanged.next(response);
             });
