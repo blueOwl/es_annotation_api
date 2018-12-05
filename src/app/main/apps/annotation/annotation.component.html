@@ -1,5 +1,5 @@
-<div class="h-100-p">
-  <div class="noc-form-section" fxLayout="column" fxLayoutAlign="start stretch">
+<div class="h-100-p w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="noc-form-section" fxFlex="150px" fxLayout="column" fxLayoutAlign="start stretch">
     <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="noc-section-heading">
         Configuration
@@ -9,7 +9,7 @@
     <div class="noc-section-body" fxLayout="column" fxLayoutAlign="start stretch">
       <form class="w-100-p" fxLayout="row" fxLayoutAlign="start center" name="annotationForm" [formGroup]="annotationForm">
         <mat-form-field class="mr-4" fxFlex="50">
-          <mat-label>Chr</mat-label>
+          <mat-label>Chromosome</mat-label>
           <input matInput formControlName="chrom" placeholder="Chromosome" />
         </mat-form-field>
         <mat-form-field class=mr-4 fxFlex="25">
@@ -22,20 +22,21 @@
         </mat-form-field>
       </form>
     </div>
-  </div>
-  <div class="noc-form-section" fxLayout="column" fxLayoutAlign="start stretch">
     <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
       <div class="noc-section-heading">
         Select Annotations
       </div>
       <span fxFlex></span>
     </div>
+  </div>
+  <div class="noc-form-section" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch" noctuaPerfectScrollbar>
+
     <div class="noc-section-body" fxLayout="column" fxLayoutAlign="start stretch">
       <noc-annotation-tree [checklistSelection]="checklistSelection" class="h-100-p w-100-p"></noc-annotation-tree>
     </div>
   </div>
-
-  <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+  <div class="w-100-p p-8" fxFlex="60px" fxLayout="row" fxLayoutAlign="start center">
+    <span fxFlex></span>
     <button (click)='clear()' type="button" mat-raised-button color="" class="mr-8">Clear</button>
     <button (click)="submit()" type="button" mat-raised-button color="primary">Submit</button>
   </div>
