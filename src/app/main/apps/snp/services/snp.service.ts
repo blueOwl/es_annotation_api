@@ -24,6 +24,14 @@ export class SnpService {
             });
     }
 
+    getSnpPage(id, pageNumber) {
+        let url = `${environment.annotationApi}/gotopage/${id}/${pageNumber}`;
+        this.httpClient.get(url)
+            .subscribe((response) => {
+                this.onSnpsChanged.next(response);
+            });
+    }
+
     getFakeDbSnps() {
         this.httpClient.get('api/snp-result')
             .subscribe((response) => {

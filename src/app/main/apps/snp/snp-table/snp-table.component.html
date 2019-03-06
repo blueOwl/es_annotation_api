@@ -1,8 +1,9 @@
 <div class="w-100-p h-100-p" fxLayout="column" fxLayoutAlign="start streych">
   <div class="">
     <ngx-datatable class="material" [rows]="genes" [columns]="columns" [loadingIndicator]="loadingIndicator"
-      [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [rowHeight]="60" [scrollbarH]="true" [reorderable]="reorderable"
-      [selectionType]="'checkbox'" [limit]="10">
+      [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [externalPaging]="true" [count]="page.totalElements"
+      [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [rowHeight]="60" [scrollbarH]="true"
+      [reorderable]="reorderable" [selectionType]="'checkbox'" [limit]="10">
     </ngx-datatable>
   </div>
 </div>

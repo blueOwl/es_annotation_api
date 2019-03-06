@@ -26,9 +26,9 @@ export class AnnotationComponent implements OnInit {
 
   createAnnotationForm() {
     return new FormGroup({
-      chrom: new FormControl(),
-      start: new FormControl(),
-      end: new FormControl(),
+      chrom: new FormControl(18),
+      start: new FormControl(10),
+      end: new FormControl(500000),
     });
   }
 
