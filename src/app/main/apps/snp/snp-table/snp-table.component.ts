@@ -65,15 +65,8 @@ export class SnpTableComponent implements OnInit {
       });
   }
 
-
   setPage(pageInfo) {
-    //  this.page.pageNumber = pageInfo.offset;
-
     this.snpService.getSnpPage(this.snp.page_id, pageInfo.offset)
-    //   this.serverResultsService.getResults(this.page).subscribe(pagedData => {
-    //   this.page = pagedData.page;
-    //    this.rows = pagedData.data;
-    //  });
   }
 
   ngOnDestroy(): void {

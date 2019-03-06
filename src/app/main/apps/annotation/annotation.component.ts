@@ -35,11 +35,11 @@ export class AnnotationComponent implements OnInit {
   submit() {
     let query = this.annotationForm.value;
     let annotations = this.checklistSelection.selected as any[];
-
-    query['headers'] = annotations.reduce((annotationString, item) => {
+    let headers = annotations.reduce((annotationString, item) => {
       return annotationString + ' ' + item.id
     }, []);
 
+    query['headers'] = headers.trim()
     this.snpService.getSnps(query);
   }
 }
