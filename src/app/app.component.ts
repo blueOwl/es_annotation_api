@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     private _unsubscribeAll: Subject<any>;
 
+
     constructor(
         private translate: TranslateService,
         private noctuaSplashScreen: NoctuaSplashScreenService,
@@ -42,6 +43,13 @@ export class AppComponent implements OnInit, OnDestroy {
         }
 
         this._unsubscribeAll = new Subject();
+
+        let location = {
+            annotationGoModelId: 'gomodel:5c6c266a00000426/5c6c266a00000428',
+            x: 122,
+            y: 75
+        }
+        //  GET location / annotationGoModelId will return { x: 122, y: 75 }
     }
 
     ngOnInit(): void {

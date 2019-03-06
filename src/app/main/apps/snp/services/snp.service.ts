@@ -16,13 +16,10 @@ export class SnpService {
 
 
     getSnps(query) {
-        let url = environment.annotationApi + '/region';///?chrom=chr1&start=100000&end=200000&header_id=1%2022%203%204';
-
-        // let data = {limit: "2"};
-        //this.httpClient.get<any>(apiUrl, {params: data});
-
+        let url = environment.annotationApi + '/region/HRC';
         this.httpClient.get(url, { params: query })
             .subscribe((response) => {
+
                 this.onSnpsChanged.next(response);
             });
     }

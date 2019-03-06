@@ -40,14 +40,15 @@ export class SnpTableComponent implements OnInit {
 
     this.columns = [];
 
+    console.log(0)
     this.snpService.onSnpsChanged
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(response => {
-        if (response.header) {
-          this.columns = response.header.map(header => ({ prop: header }));
+        if (response.headers) {
+          this.columns = response.headers.map(header => ({ prop: header }));
           this.genes = _.map(response.data, (srcRow) => {
             return srcRow.reduce((destRow, item, i) => {
-              destRow[response.header[i]] = item
+              destRow[response.headers[i]] = item
               return destRow
             }, {});
           });

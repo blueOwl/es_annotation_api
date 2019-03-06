@@ -36,7 +36,7 @@ export class AnnotationComponent implements OnInit {
     let query = this.annotationForm.value;
     let annotations = this.checklistSelection.selected as any[];
 
-    query['header_id'] = annotations.reduce((annotationString, item) => {
+    query['headers'] = annotations.reduce((annotationString, item) => {
       return annotationString + ' ' + item.id
     }, []);
 

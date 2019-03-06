@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  annotationTreeApi: 'https://urldefense.proofpoint.com/v2/url?u=http-3A__206.189.218.218-3A5000_api_header-5Ftree_&d=DwIBaQ&c=clK7kQUTWtAVEOVIgvi0NU5BOUHhpN0H8p7CSfnc_gI&r=-f4LN7Ln2_0YcM98JQpa0g&m=fxze-BAkCADgvmiJL77gzvGrAOeL5SZGdoMwh48YSkU&s=CJENg45fxXJJbKmZdZhAu0u_MfFDBi_OwK2AdCTf1k0&e=',
-  annotationApi: 'http://206.189.218.218:5000/api'
+  annotationApi: 'http://206.189.218.218:5000'
 };
 
 /*
