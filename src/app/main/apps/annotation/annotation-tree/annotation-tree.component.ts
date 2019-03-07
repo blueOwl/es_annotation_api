@@ -61,6 +61,8 @@ export class AnnotationTreeComponent implements OnInit {
       .subscribe(annotationTree => {
         this.annotationList = annotationTree;
         this.dataSource.data = this.annotationList;
+
+        this.treeControl.expand(this.treeControl.dataNodes[0])
       });
 
     this.annotationService.getAnnotationList();
