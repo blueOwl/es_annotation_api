@@ -38,7 +38,9 @@ export class AnnotationService {
         this.httpClient.get<Annotation[]>(`${api}/anno_tree/HRC`)
             .subscribe((response: Annotation[]) => {
                 this.annotation = response['header_tree_array'];
+                console.log(this.annotation)
                 this.annotationNodes = this._buildAnnotationTree(this.annotation);
+                console.log(this.annotationNodes);
                 this.onAnnotationTreeChanged.next(this.annotationNodes);
             });
     }
@@ -56,7 +58,7 @@ export class AnnotationService {
         let getNestedChildren = (arr, parent_id, level) => {
             let out = []
             for (let i in arr) {
-                if (arr[i].parent_id == parent_id) {
+                if (arr[i].parent_id === parent_id) {
                     let children = getNestedChildren(arr, arr[i].id, level++)
 
                     if (children.length) {
@@ -68,7 +70,7 @@ export class AnnotationService {
             return out
         }
 
-        return getNestedChildren(annotation, '', 1);
+        return getNestedChildren(annotation, null, 1);
     }
 
 
