@@ -7,7 +7,6 @@ import { MatDrawer } from '@angular/material';
 
 declare const require: any;
 const each = require('lodash/forEach');
-const cloneDeep = require('lodash/cLoneDeep');
 
 @Injectable({
   providedIn: 'root'
