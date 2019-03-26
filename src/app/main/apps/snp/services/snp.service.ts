@@ -10,10 +10,37 @@ import 'rxjs/add/operator/map';
 })
 export class SnpService {
     onSnpsChanged: BehaviorSubject<any>;
-    constructor(private httpClient: HttpClient) {
-        this.onSnpsChanged = new BehaviorSubject([]);
+
+    inputType: any = {
+        chromosome: {
+            id: 1,
+            label: "Chromosome"
+        }, chromosomeList: {
+            id: 2,
+            label: "Chromosome List"
+        }, geneProduct: {
+            id: 3,
+            label: "Gene Product"
+        }
     }
 
+    inputTypes: any = {
+        options: [
+            this.inputType.chromosome,
+            this.inputType.chromosomeList,
+            this.inputType.geneProduct
+        ]
+    }
+
+    constructor(private httpClient: HttpClient) {
+        this.onSnpsChanged = new BehaviorSubject([]);
+
+        this.inputTypes.selected = this.inputTypes.options[0]
+    }
+
+    selectInputType(inputType) {
+        this.inputTypes.selected = inputType;
+    }
 
     getSnps(query) {
         let url = environment.annotationApi + '/region/HRC';

@@ -17,7 +17,7 @@ export class AnnotationComponent implements OnInit {
   annotationForm: FormGroup;
 
   constructor(public noctuaMenuService: NoctuaMenuService,
-    private snpService: SnpService) {
+    public snpService: SnpService) {
     this.annotationForm = this.createAnnotationForm();
   }
 

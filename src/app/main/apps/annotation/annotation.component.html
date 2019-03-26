@@ -1,36 +1,64 @@
-<div class="h-100-p w-100-p" fxLayout="column" fxLayoutAlign="start stretch">
-  <div class="noc-form-section" fxFlex="150px" fxLayout="column" fxLayoutAlign="start stretch">
-    <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
-      <div class="noc-section-heading">
-        Configuration
-      </div>
-      <span fxFlex></span>
+<form class="noc-form-section h-100-p w-100-p" fxLayout="column" fxLayoutAlign="start stretch" name="annotationForm"
+  [formGroup]="annotationForm">
+  <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="noc-section-heading">
+      Configuration
     </div>
-    <div class="noc-section-body" fxLayout="column" fxLayoutAlign="start stretch">
-      <form class="w-100-p" fxLayout="row" fxLayoutAlign="start center" name="annotationForm" [formGroup]="annotationForm">
-        <mat-form-field class="mr-4" fxFlex="50">
-          <mat-label>Chromosome</mat-label>
-          <input matInput formControlName="chrom" placeholder="Chromosome" />
-        </mat-form-field>
-        <mat-form-field class=mr-4 fxFlex="25">
-          <mat-label>Start</mat-label>
-          <input matInput formControlName="start" placeholder="Start">
-        </mat-form-field>
-        <mat-form-field class="example-full-width" fxFlex="25">
-          <mat-label>End</mat-label>
-          <input matInput formControlName="end" placeholder="End">
-        </mat-form-field>
-      </form>
+    <span fxFlex></span>
+    <button mat-button class="noc-action-button" [matMenuTriggerFor]="configurationMenu">
+      CHANGE
+    </button>
+    <mat-menu #configurationMenu="matMenu" class="noc-dropdown-menu">
+      <button mat-menu-item *ngFor="let inputType of snpService.inputTypes.options" class=""
+        (click)="snpService.selectInputType(inputType)">
+        {{inputType.label}}
+      </button>
+    </mat-menu>
+  </div>
+  <div [ngSwitch]="snpService.inputTypes.selected.id" class="noc-section-body" fxLayout="column"
+    fxLayoutAlign="start stretch">
+    <div class="" *ngSwitchCase="snpService.inputType.chromosome.id">
+      <mat-form-field class="w-100-p">
+        <mat-label>Chromosome</mat-label>
+        <input matInput formControlName="chrom" placeholder="Chromosome" />
+      </mat-form-field>
     </div>
-    <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
-      <div class="noc-section-heading">
-        Select Annotations
-      </div>
-      <span fxFlex></span>
+    <div class="" *ngSwitchCase="snpService.inputType.chromosomeList.id">
+      <mat-form-field class="w-100-p">
+        <mat-label>Chromosome List</mat-label>
+        <input matInput formControlName="chrom" placeholder="Chromosome List" />
+      </mat-form-field>
+    </div>
+    <div class="" *ngSwitchCase="snpService.inputType.geneProduct.id">
+      <mat-form-field class="w-100-p">
+        <mat-label>Gene Product</mat-label>
+        <input matInput formControlName="chrom" placeholder="Gene Product" />
+      </mat-form-field>
     </div>
   </div>
+  <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="noc-section-heading">
+      Position
+    </div>
+    <span fxFlex></span>
+  </div>
+  <div class="noc-section-body" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class=mr-4 fxFlex="50">
+      <mat-label>Start</mat-label>
+      <input matInput formControlName="start" placeholder="Start">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" fxFlex="50">
+      <mat-label>End</mat-label>
+      <input matInput formControlName="end" placeholder="End">
+    </mat-form-field>
+  </div>
+  <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="noc-section-heading">
+      Select Annotations
+    </div>
+    <span fxFlex></span>
+  </div>
   <div class="noc-form-section" fxFlex="" fxLayout="column" fxLayoutAlign="start stretch" noctuaPerfectScrollbar>
-
     <div class="noc-section-body" fxLayout="column" fxLayoutAlign="start stretch">
       <noc-annotation-tree [checklistSelection]="checklistSelection" class="h-100-p w-100-p"></noc-annotation-tree>
     </div>
@@ -40,4 +68,4 @@
     <button (click)='clear()' type="button" mat-raised-button color="" class="mr-8">Clear</button>
     <button (click)="submit()" type="button" mat-raised-button color="primary">Submit</button>
   </div>
-</div>
+</form>
