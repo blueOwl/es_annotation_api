@@ -23,17 +23,29 @@
         <input matInput formControlName="chrom" placeholder="Chromosome" />
       </mat-form-field>
     </div>
-    <div class="" *ngSwitchCase="snpService.inputType.chromosomeList.id">
-      <mat-form-field class="w-100-p">
-        <mat-label>Chromosome List</mat-label>
-        <input matInput formControlName="chrom" placeholder="Chromosome List" />
-      </mat-form-field>
-    </div>
     <div class="" *ngSwitchCase="snpService.inputType.geneProduct.id">
       <mat-form-field class="w-100-p">
         <mat-label>Gene Product</mat-label>
-        <input matInput formControlName="chrom" placeholder="Gene Product" />
+        <input matInput formControlName="geneProduct" placeholder="Gene Product" />
       </mat-form-field>
+    </div>
+    <div class="" *ngSwitchCase="snpService.inputType.chromosomeList.id">
+      <div [formGroupName]="'uploadList'" fxLayout="column" fxLayoutAlign="start stretch" class="">
+        <div fxLayout="row" fxLayoutAlign="start center" class="pthr-file-upload-header">
+          <span fxFlex=""></span>
+          <label for="noc-upload-snp-browse" fxLayout="row" fxLayoutAlign="start center" class="pthr-file-upload">
+            <button mat-stroked-button class="pthr-file-button">
+              <mat-icon class="s-16 mr-4">cloud_upload</mat-icon> Populate from a FIle
+            </button>
+          </label>
+          <input type="file" id="noc-upload-snp-browse" formControlName="browse" (change)="onFileChange($event)"
+            class="pthr-file-upload" />
+          <button mat-stroked-button>Clear</button>
+        </div>
+        <mat-form-field class="mr-8 w-100-p" appearance="outline">
+          <textarea matInput formControlName="ids" placeholder="Enter IDs" rows="5"></textarea>
+        </mat-form-field>
+      </div>
     </div>
   </div>
   <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
@@ -43,14 +55,16 @@
     <span fxFlex></span>
   </div>
   <div class="noc-section-body" fxLayout="row" fxLayoutAlign="start center">
-    <mat-form-field class=mr-4 fxFlex="50">
+    <mat-form-field class=mr-4 fxFlex="30">
       <mat-label>Start</mat-label>
       <input matInput formControlName="start" placeholder="Start">
     </mat-form-field>
-    <mat-form-field class="example-full-width" fxFlex="50">
+    <mat-form-field class="example-full-width" fxFlex="30">
       <mat-label>End</mat-label>
       <input matInput formControlName="end" placeholder="End">
     </mat-form-field>
+    <span fxFlex=""></span>
+    <mat-checkbox class="" color="primary" formControlName="all">All</mat-checkbox>
   </div>
   <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
     <div class="noc-section-heading">

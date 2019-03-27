@@ -31,6 +31,32 @@
     width: 100%;
     background-color: #FFF;
 
+    input[type="file"] {
+      display: none;
+    }
+
+    .pthr-file-upload-header {
+      height: 35px;
+
+      button {
+        @include deep-height(35px);
+
+        &.pthr-file-button {
+          pointer-events: none;
+        }
+      }
+
+      label {
+        padding: 0;
+      }
+
+      .pthr-file-upload-title {
+        margin-left: 4px;
+        color: #888;
+        font-weight: bold;
+      }
+    }
+
     .noc-section-header {
       height: 30px;
       background-color: $noc-primary-color-light;
