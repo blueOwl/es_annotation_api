@@ -17,10 +17,13 @@ export class SnpService {
             label: "Chromosome"
         }, chromosomeList: {
             id: 2,
-            label: "Chromosome List"
+            label: "Variants List"
         }, geneProduct: {
             id: 3,
             label: "Gene Product"
+        }, rsID : {
+            id: 4,
+            label: "rsID or variant id"
         }
     }
 
@@ -28,7 +31,8 @@ export class SnpService {
         options: [
             this.inputType.chromosome,
             this.inputType.chromosomeList,
-            this.inputType.geneProduct
+            this.inputType.geneProduct,
+            this.inputType.rsID
         ]
     }
 
@@ -43,10 +47,17 @@ export class SnpService {
     }
 
     getSnps(query) {
-        let url = environment.annotationApi + '/region/HRC';
+        if (this.inputTypes.selected == this.inputType.chromosome) {
+            let url = environment.annotationApi + '/region/HRC';
+        } else if (this.inputTypes.selected == this.inputType.geneProduct) {
+            let url = environment.annotationApi + '/gene/HRC';
+            query['gene'] = query.geneProduct;
+        } else if (this.inputTypes.selected == this.inputType.rsID) {
+            let url = environment.annotationApi + '/rs/' + query.rsID;
+            query = {};
+        }
         this.httpClient.get(url, { params: query })
             .subscribe((response) => {
-
                 this.onSnpsChanged.next(response);
             });
     }

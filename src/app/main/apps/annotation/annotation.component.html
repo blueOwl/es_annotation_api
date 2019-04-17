@@ -22,11 +22,35 @@
         <mat-label>Chromosome</mat-label>
         <input matInput formControlName="chrom" placeholder="Chromosome" />
       </mat-form-field>
+      <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
+        <div class="noc-section-heading">
+          Position
+        </div>
+        <span fxFlex></span>
+      </div>
+      <div class="noc-section-body" fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field class=mr-4 fxFlex="30">
+          <mat-label>Start</mat-label>
+          <input matInput formControlName="start" placeholder="Start">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" fxFlex="30">
+          <mat-label>End</mat-label>
+          <input matInput formControlName="end" placeholder="End">
+        </mat-form-field>
+        <span fxFlex=""></span>
+        <mat-checkbox class="" color="primary" formControlName="all">All</mat-checkbox>
+      </div>
     </div>
     <div class="" *ngSwitchCase="snpService.inputType.geneProduct.id">
       <mat-form-field class="w-100-p">
         <mat-label>Gene Product</mat-label>
         <input matInput formControlName="geneProduct" placeholder="Gene Product" />
+      </mat-form-field>
+    </div>
+    <div class="" *ngSwitchCase="snpService.inputType.rsID.id">
+      <mat-form-field class="w-100-p">
+        <mat-label>rsID</mat-label>
+        <input matInput formControlName="rsID" placeholder="rsID" />
       </mat-form-field>
     </div>
     <div class="" *ngSwitchCase="snpService.inputType.chromosomeList.id">
@@ -48,24 +72,7 @@
       </div>
     </div>
   </div>
-  <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
-    <div class="noc-section-heading">
-      Position
-    </div>
-    <span fxFlex></span>
-  </div>
-  <div class="noc-section-body" fxLayout="row" fxLayoutAlign="start center">
-    <mat-form-field class=mr-4 fxFlex="30">
-      <mat-label>Start</mat-label>
-      <input matInput formControlName="start" placeholder="Start">
-    </mat-form-field>
-    <mat-form-field class="example-full-width" fxFlex="30">
-      <mat-label>End</mat-label>
-      <input matInput formControlName="end" placeholder="End">
-    </mat-form-field>
-    <span fxFlex=""></span>
-    <mat-checkbox class="" color="primary" formControlName="all">All</mat-checkbox>
-  </div>
+
   <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
     <div class="noc-section-heading">
       Select Annotations

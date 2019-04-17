@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  annotationApi: 'http://206.189.218.218:5000'
+  annotationApi: 'http://localhost:5000'
 };
 
 /*

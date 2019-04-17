@@ -28,7 +28,8 @@ export class AnnotationComponent implements OnInit {
     return new FormGroup({
       chrom: new FormControl(18),
       chromList: new FormControl(),
-      geneProduct: new FormControl(),
+      geneProduct: new FormControl('NP_001073678'),
+      rsID: new FormControl('rs111739080'),
       start: new FormControl(10),
       end: new FormControl(500000),
       all: new FormControl(false),

@@ -149,7 +149,9 @@ export class AnnotationTreeComponent implements OnInit {
       this.checklistSelection.select(node);
     }
   }
-
+  openAnnotationPreview(name: String) {
+    console.log(name);
+  }
   /* Get the parent node of a node */
   getParentNode(node: AnnotationFlatNode): AnnotationFlatNode | null {
     const currentLevel = this._getLevel(node);
