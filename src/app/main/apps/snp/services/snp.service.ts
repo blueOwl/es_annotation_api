@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import 'rxjs/add/operator/map';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -47,20 +48,42 @@ export class SnpService {
     }
 
     getSnps(query) {
-        let url;
+        let url = environment.annotationApi
 
-        if (this.inputTypes.selected == this.inputType.chromosome) {
-            url = environment.annotationApi + '/region/HRC';
-        } else if (this.inputTypes.selected == this.inputType.geneProduct) {
-            url = environment.annotationApi + '/gene/HRC';
-            query['gene'] = query.geneProduct;
-        } else if (this.inputTypes.selected == this.inputType.rsID) {
-            url = environment.annotationApi + '/rs/' + query.rsID;
-            query = {};
+        switch (this.inputTypes.selected) {
+
+            case this.inputType.chromosome:
+                url += '/region/HRC';
+                break;
+            case this.inputType.geneProduct:
+                // url += '/gene/HRC';
+                //  query['gene'] = query.geneProduct;
+
+                //fake data
+                url = 'api/gene-snp-result'
+                this.httpClient.get(url).pipe(
+                    tap(res => {
+                        console.log(res)
+                    })
+                )
+                    .subscribe((response) => {
+                        this.onSnpsChanged.next(response);
+                    });
+                return;
+                //fakse
+                break;
+            case this.inputType.rsID:
+                url += '/rs/' + query.rsID;
+                query = {};
+                break;
         }
 
         if (url) {
-            this.httpClient.get(url, { params: query })
+            this.httpClient.get(url, { params: query }).pipe(
+                tap(res => {
+                    console.log(res)
+                })
+            )
                 .subscribe((response) => {
                     this.onSnpsChanged.next(response);
                 });

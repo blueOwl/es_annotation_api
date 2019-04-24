@@ -5,4 +5,44 @@
   .noc-table-menu-row {
     height: 60px;
   }
+
+
+
+  .ngx-datatable.scroll-vertical .datatable-body {
+    overflow-y: auto;
+  }
+
+  .ngx-datatable.scroll-vertical {
+    height: 70vh;
+  }
+
+  .noc-form-section {
+    width: 100%;
+    background-color: #FFF;
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .noc-section-header {
+      height: 30px;
+      background-color: $noc-primary-color-light;
+
+      .noc-section-heading {
+        padding-left: 8px;
+        font-size: 12px;
+        line-height: 40px;
+        color: #555;
+      }
+
+      .noc-action-button {
+        margin: 0px;
+        height: 40px; // line-height: 36px;
+      }
+    }
+
+    .noc-section-body {
+      padding: 5px 5px;
+    }
+  }
 }

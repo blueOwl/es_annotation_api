@@ -1,9 +1,26 @@
-<div class="w-100-p h-100-p" fxLayout="column" fxLayoutAlign="start streych">
-  <div class="">
-    <ngx-datatable class="material" [rows]="genes" [columns]="columns" [loadingIndicator]="loadingIndicator"
-      [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56" [externalPaging]="true" [count]="page.totalElements"
-      [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' [rowHeight]="60" [scrollbarH]="true"
-      [reorderable]="reorderable" [selectionType]="'checkbox'" [limit]="10">
+<div class="noc-form-section w-100-p h-100-p" fxLayout="column" fxLayoutAlign="start streych">
+  <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="noc-section-heading">
+      <div *ngIf="gene">
+        <span>
+          <small>Uniprot Id:</small> {{gene.uniprotId}}
+          <small>Contig:</small> {{gene.contig}}
+          <small>Start:</small> {{gene.start}}
+          <small>End:</small> {{gene.end}}
+        </span>
+      </div>
+    </div>
+    <span fxFlex></span>
+    <button mat-button class="noc-action-button" (click)="download()">
+      Download
+    </button>
+  </div>
+  <div class="noc-section-body">
+    <ngx-datatable class="material w-100-p h-100-p" [rows]="genes" [columns]="columns"
+      [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
+      [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+      (page)='setPage($event)' [rowHeight]="60" [scrollbarH]="true" [scrollbarV]="true" [reorderable]="reorderable"
+      [selectionType]="'checkbox'">
     </ngx-datatable>
   </div>
 </div>

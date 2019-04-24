@@ -9,6 +9,7 @@ import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 
 import { SnpService } from './../services/snp.service'
 import { Page } from '../models/page';
+import { Gene } from '../models/gene';
 @Component({
   selector: 'ann-snp-table',
   templateUrl: './snp-table.component.html',
@@ -16,6 +17,7 @@ import { Page } from '../models/page';
 })
 export class SnpTableComponent implements OnInit {
   page = new Page();
+  gene;
   genes: any[] = [];
   columns: any[] = [];
   snp: any;
@@ -61,6 +63,16 @@ export class SnpTableComponent implements OnInit {
               return destRow
             }, {});
           });
+
+          if (snp.gene_info) {
+            this.gene = new Gene()
+            this.gene.uniprotId = snp.gene_info.uniprot_id;
+            this.gene.contig = snp.gene_info.contig;
+            this.gene.start = snp.gene_info.start;
+            this.gene.end = snp.gene_info.end;
+          } else {
+            this.gene = null
+          }
         }
       });
   }
