@@ -30,7 +30,7 @@ export class SnpDialogService {
     openDownloadToast(data) {
         this.snackBar.openFromComponent(DownloadReadyComponent, {
             data: data,
-            duration: 100000,
+            duration: 20000,
         });
     }
 
