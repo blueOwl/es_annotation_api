@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_SNACK_BAR_DATA } from '@angular/material';
+import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material';
 import { SnpService } from './../../services/snp.service'
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -12,6 +12,7 @@ import { environment } from 'environments/environment';
 })
 export class DownloadReadyComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;
+  snackBarRef: MatSnackBarRef<DownloadReadyComponent>;
   downloadUrl: any;
 
   constructor(
@@ -27,4 +28,8 @@ export class DownloadReadyComponent implements OnInit {
 
   }
 
+  close() {
+    console.log('abc');
+    this.snackBarRef.dismiss();
+  }
 }

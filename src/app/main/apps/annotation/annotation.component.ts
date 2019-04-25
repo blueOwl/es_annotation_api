@@ -72,7 +72,7 @@ export class AnnotationComponent implements OnInit {
       return annotationString + ' ' + item.id
     }, []);
 
-    if (headers) {
+    if (headers.length > 0) {
       this.annotationService.downloadConfig(headers.trim());
     } else {
       this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
@@ -86,7 +86,7 @@ export class AnnotationComponent implements OnInit {
       return annotationString + ' ' + item.id
     }, []);
 
-    if (headers) {
+    if (headers.length > 0) {
       query['headers'] = headers.trim()
       this.snpService.getSnps(query);
     } else {

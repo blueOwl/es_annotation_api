@@ -47,7 +47,6 @@ export class SnpTableComponent implements OnInit {
     const self = this;
 
     this.columns = [];
-
     this.page.pageNumber = 0;
     this.page.size = 50;
 
@@ -89,7 +88,9 @@ export class SnpTableComponent implements OnInit {
   }
 
   setPage(pageInfo) {
-    this.snpService.getSnpPage(this.snp.page_id, pageInfo.offset)
+    if (this.snp && this.snp.page_id) {
+      this.snpService.getSnpPage(this.snp.page_id, pageInfo.offset)
+    }
   }
 
   ngOnDestroy(): void {
