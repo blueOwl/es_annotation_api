@@ -2,7 +2,7 @@ import { environment } from 'environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { saveAs } from 'file-saver';
 
 
 
@@ -71,6 +71,11 @@ export class AnnotationService {
         }
 
         return getNestedChildren(annotation, null, 1);
+    }
+
+    downloadConfig(configText: string) {
+        var blob = new Blob([configText], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "config.txt");
     }
 
 

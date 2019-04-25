@@ -20,6 +20,13 @@ export class SnpDialogService {
         private _matDialog: MatDialog) {
     }
 
+    openMessageToast(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 10000,
+            verticalPosition: 'top'
+        });
+    }
+
     openDownloadToast(data) {
         this.snackBar.openFromComponent(DownloadReadyComponent, {
             data: data,

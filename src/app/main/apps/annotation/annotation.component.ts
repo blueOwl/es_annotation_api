@@ -5,6 +5,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SnpService } from './../snp/services/snp.service'
 
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { AnnotationService } from './services/annotation.service';
+import { SnpDialogService } from '../snp/services/dialog.service';
 
 @Component({
   selector: 'ann-annotation',
@@ -17,6 +19,8 @@ export class AnnotationComponent implements OnInit {
   annotationForm: FormGroup;
 
   constructor(public noctuaMenuService: NoctuaMenuService,
+    private annotationService: AnnotationService,
+    private snpDialogService: SnpDialogService,
     public snpService: SnpService) {
     this.annotationForm = this.createAnnotationForm();
   }
@@ -61,8 +65,18 @@ export class AnnotationComponent implements OnInit {
     }
   }
 
-  exportConfig() {
+  downloadConfig() {
 
+    let annotations = this.checklistSelection.selected as any[];
+    let headers = annotations.reduce((annotationString, item) => {
+      return annotationString + ' ' + item.id
+    }, []);
+
+    if (headers) {
+      this.annotationService.downloadConfig(headers.trim());
+    } else {
+      this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
+    }
   }
 
   submit() {
@@ -72,7 +86,11 @@ export class AnnotationComponent implements OnInit {
       return annotationString + ' ' + item.id
     }, []);
 
-    query['headers'] = headers.trim()
-    this.snpService.getSnps(query);
+    if (headers) {
+      query['headers'] = headers.trim()
+      this.snpService.getSnps(query);
+    } else {
+      this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
+    }
   }
 }
