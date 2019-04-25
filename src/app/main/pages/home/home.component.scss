@@ -4,19 +4,9 @@
 :host {
   width: 100%;
 
-  .noc-sidenav {
-    width: 200px;
-
-    .noc-nav-button {
-      padding: 0 12px;
-      @include deep-height(50px);
-      border-bottom: #CCC solid 1px;
-
-      &.noc-selected {
-        background-color: #DDD;
-        font-weight: bold;
-      }
-    }
+  .noc-left-drawer {
+    width: 400px;
+    border-right: #111 solid 1px;
 
     .phtr-menu-section {
       width: 100%;

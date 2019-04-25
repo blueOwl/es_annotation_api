@@ -1,5 +1,5 @@
 <div class="noc-form-section w-100-p h-100-p" fxLayout="column" fxLayoutAlign="start streych">
-  <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
+  <div class="noc-drawer-header" fxLayout="row" fxLayoutAlign="start center">
     <div class="noc-section-heading">
       <div *ngIf="gene">
         <span>
@@ -11,11 +11,11 @@
       </div>
     </div>
     <span fxFlex></span>
-    <button mat-button class="noc-action-button" (click)="download()">
+    <button mat-raised-button color="primary" class="noc-action-button" (click)="download()">
       Download
     </button>
   </div>
-  <div class="noc-section-body">
+  <div class="noc-section-body w-100-p h-100-p">
     <ngx-datatable class="material w-100-p h-100-p" [rows]="genes" [columns]="columns"
       [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
       [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"

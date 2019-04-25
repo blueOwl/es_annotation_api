@@ -10,6 +10,7 @@ import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 import { SnpService } from './../services/snp.service'
 import { Page } from '../models/page';
 import { Gene } from '../models/gene';
+import { SnpDialogService } from '../services/dialog.service';
 @Component({
   selector: 'ann-snp-table',
   templateUrl: './snp-table.component.html',
@@ -29,6 +30,7 @@ export class SnpTableComponent implements OnInit {
 
   constructor(
     private _httpClient: HttpClient,
+    private snpDialogService: SnpDialogService,
     public noctuaMenuService: NoctuaMenuService,
     private snpService: SnpService
   ) {
@@ -54,6 +56,7 @@ export class SnpTableComponent implements OnInit {
       .subscribe(snp => {
         if (snp.headers) {
           this.snp = snp;
+          this.snpService.downloadId = this.snp.page_id ? this.snp.page_id : null;
           this.page.pageNumber = this.snp.page_info.page_num - 1;
           this.page.totalElements = this.snp.page_info.total_page
           this.columns = snp.headers.map(header => ({ prop: header }));
@@ -75,6 +78,14 @@ export class SnpTableComponent implements OnInit {
           }
         }
       });
+
+    this.snpService.onSnpsDownloadReady
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((res) => {
+        if (res && res.url) {
+          this.snpDialogService.openDownloadToast(res)
+        }
+      });
   }
 
   setPage(pageInfo) {
@@ -85,4 +96,9 @@ export class SnpTableComponent implements OnInit {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
+
+  download() {
+    this.snpService.downloadSnp();
+  }
+
 }

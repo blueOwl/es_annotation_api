@@ -11,6 +11,8 @@ import { tap } from 'rxjs/operators';
 })
 export class SnpService {
     onSnpsChanged: BehaviorSubject<any>;
+    onSnpsDownloadReady: BehaviorSubject<any>;
+    downloadId
 
     inputType: any = {
         chromosome: {
@@ -39,6 +41,7 @@ export class SnpService {
 
     constructor(private httpClient: HttpClient) {
         this.onSnpsChanged = new BehaviorSubject([]);
+        this.onSnpsDownloadReady = new BehaviorSubject(null);
 
         this.inputTypes.selected = this.inputTypes.options[0]
     }
@@ -59,7 +62,7 @@ export class SnpService {
                 // url += '/gene/HRC';
                 //  query['gene'] = query.geneProduct;
 
-                //fake data
+                //remove this part fake data
                 url = 'api/gene-snp-result'
                 this.httpClient.get(url).pipe(
                     tap(res => {
@@ -95,6 +98,17 @@ export class SnpService {
         this.httpClient.get(url)
             .subscribe((response) => {
                 this.onSnpsChanged.next(response);
+            });
+    }
+
+    downloadSnp() {
+        if (!this.downloadId) return;
+
+        let url = `${environment.annotationApi}/total_res/${this.downloadId}`;
+
+        this.httpClient.get(url)
+            .subscribe((response) => {
+                this.onSnpsDownloadReady.next(response);
             });
     }
 

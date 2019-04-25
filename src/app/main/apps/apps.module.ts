@@ -5,6 +5,7 @@ import { NoctuaSharedModule } from '@noctua/shared.module';
 import { SnpTableComponent } from './snp/snp-table/snp-table.component';
 import { AnnotationTreeComponent } from './annotation/annotation-tree/annotation-tree.component';
 import { AnnotationComponent } from './annotation/annotation.component';
+import { DownloadReadyComponent } from './snp/snp-table/download-ready/download-ready.component';
 
 const routes = [];
 
@@ -12,7 +13,8 @@ const routes = [];
   declarations: [
     SnpTableComponent,
     AnnotationComponent,
-    AnnotationTreeComponent
+    AnnotationTreeComponent,
+    DownloadReadyComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -23,6 +25,9 @@ const routes = [];
     SnpTableComponent,
     AnnotationComponent,
     AnnotationTreeComponent
+  ],
+  entryComponents: [
+    DownloadReadyComponent
   ],
   providers: [
   ]
