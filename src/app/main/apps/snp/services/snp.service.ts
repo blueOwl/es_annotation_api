@@ -59,20 +59,20 @@ export class SnpService {
                 url += '/region/HRC';
                 break;
             case this.inputType.geneProduct:
-                // url += '/gene/HRC';
-                //  query['gene'] = query.geneProduct;
+                url += '/gene/HRC';
+                query['gene'] = query.geneProduct;
 
                 //remove this part fake data
-                url = 'api/gene-snp-result'
-                this.httpClient.get(url).pipe(
-                    tap(res => {
-                        console.log(res)
-                    })
-                )
-                    .subscribe((response) => {
-                        this.onSnpsChanged.next(response);
-                    });
-                return;
+                //url = 'api/gene-snp-result'
+                //this.httpClient.get(url).pipe(
+                //    tap(res => {
+                //        console.log(res)
+                //    })
+                //)
+                //    .subscribe((response) => {
+                //        this.onSnpsChanged.next(response);
+                //    });
+                //return;
                 //fakse
                 break;
             case this.inputType.rsID:
