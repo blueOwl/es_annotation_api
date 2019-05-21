@@ -1,6 +1,6 @@
 import { environment } from 'environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import 'rxjs/add/operator/map';
@@ -79,6 +79,19 @@ export class SnpService {
                 url += '/rs/' + query.rsID;
                 query = {};
                 break;
+            case this.inputType.chromosomeList:
+                url += '/vcf'
+                console.log('run');
+                this.httpClient.post(url, {params: query}).pipe(
+                    tap(res => {
+                       console.log(res) 
+                    })
+                )
+                .subscribe((response) => {
+                    //this.snpDialogService.openMessageToast(environment.annotationApi + response['url'], 'OK');
+                });
+                ;
+                return;
         }
 
         if (url) {
