@@ -79,6 +79,10 @@ export class AnnotationComponent implements OnInit {
     }
   }
 
+  clear() {
+    this.checklistSelection.clear();
+  }
+
   submit() {
     let query = this.annotationForm.value;
     let annotations = this.checklistSelection.selected as any[];
