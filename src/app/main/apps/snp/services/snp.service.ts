@@ -85,6 +85,8 @@ export class SnpService {
                 this.httpClient.post(url, {params: query}).pipe(
                     tap(res => {
                        console.log(res) 
+                       //{"url":"/download/tmp/dd58a3a9-e81c-4dbb-a4ac-ee52656aa9fb"}
+
                     })
                 )
                 .subscribe((response) => {
