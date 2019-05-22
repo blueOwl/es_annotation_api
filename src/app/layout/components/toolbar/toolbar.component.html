@@ -2,15 +2,15 @@
   <mat-progress-bar *ngIf="showLoadingBar" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
   <div fxLayout="row" fxLayoutAlign="start center" fxFlex="250px">
     <div class="noc-logo" fxLayout="row" fxLayoutAlign="start">
-      <a class="noc-main-logo" target="_blank">
+      <a class="noc-main-logo" [routerLink]="['/']">
         Annotation API
       </a>
     </div>
   </div>
   <span fxFlex=""></span>
   <div fxLayout="row" fxLayoutAlign="end center" fxFlex="250px">
-    <button mat-button class="">
+    <a mat-button [routerLink]="['/about']" class="">
       About
-    </button>
+    </a>
   </div>
 </mat-toolbar>

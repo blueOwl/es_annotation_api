@@ -82,16 +82,18 @@ export class SnpService {
             case this.inputType.chromosomeList:
                 url += '/vcf'
                 console.log('run');
-                this.httpClient.post(url, {params: query}).pipe(
+                this.httpClient.post(url, { params: query }).pipe(
                     tap(res => {
-                       console.log(res) 
-                       //{"url":"/download/tmp/dd58a3a9-e81c-4dbb-a4ac-ee52656aa9fb"}
+                        console.log(res)
+
+                        //{"url":"/download/tmp/dd58a3a9-e81c-4dbb-a4ac-ee52656aa9fb"}
 
                     })
                 )
-                .subscribe((response) => {
-                    //this.snpDialogService.openMessageToast(environment.annotationApi + response['url'], 'OK');
-                });
+                    .subscribe((response) => {
+                        //this.snpDialogService.openMessageToast(environment.annotationApi + response['url'], 'OK');
+                        this.onSnpsDownloadReady.next(response);
+                    });
                 ;
                 return;
         }
@@ -126,6 +128,7 @@ export class SnpService {
                 this.onSnpsDownloadReady.next(response);
             });
     }
+
 
     getFakeDbSnps() {
         this.httpClient.get('api/snp-result')
