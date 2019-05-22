@@ -14,7 +14,7 @@ const routes = [];
     SnpTableComponent,
     AnnotationComponent,
     AnnotationTreeComponent,
-    DownloadReadyComponent
+    DownloadReadyComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
