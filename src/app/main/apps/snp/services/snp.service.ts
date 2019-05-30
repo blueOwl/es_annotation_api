@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import 'rxjs/add/operator/map';
-import { tap } from 'rxjs/operators';
+import { tap, finalize } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -12,6 +12,7 @@ import { tap } from 'rxjs/operators';
 export class SnpService {
     onSnpsChanged: BehaviorSubject<any>;
     onSnpsDownloadReady: BehaviorSubject<any>;
+    loading: boolean = false;
     downloadId
 
     inputType: any = {
@@ -51,29 +52,16 @@ export class SnpService {
     }
 
     getSnps(query) {
+        const self = this;
         let url = environment.annotationApi
 
         switch (this.inputTypes.selected) {
-
             case this.inputType.chromosome:
                 url += '/region/HRC';
                 break;
             case this.inputType.geneProduct:
                 url += '/gene/HRC';
                 query['gene'] = query.geneProduct;
-
-                //remove this part fake data
-                //url = 'api/gene-snp-result'
-                //this.httpClient.get(url).pipe(
-                //    tap(res => {
-                //        console.log(res)
-                //    })
-                //)
-                //    .subscribe((response) => {
-                //        this.onSnpsChanged.next(response);
-                //    });
-                //return;
-                //fakse
                 break;
             case this.inputType.rsID:
                 url += '/rs/' + query.rsID;
@@ -85,37 +73,37 @@ export class SnpService {
                 this.httpClient.post(url, { params: query }).pipe(
                     tap(res => {
                         console.log(res)
-
-                        //{"url":"/download/tmp/dd58a3a9-e81c-4dbb-a4ac-ee52656aa9fb"}
-
                     })
-                )
-                    .subscribe((response) => {
-                        //this.snpDialogService.openMessageToast(environment.annotationApi + response['url'], 'OK');
-                        this.onSnpsDownloadReady.next(response);
-                    });
-                ;
+                ).subscribe((response) => {
+                    this.onSnpsDownloadReady.next(response);
+                });
                 return;
         }
 
         if (url) {
+            self.loading = true;
             this.httpClient.get(url, { params: query }).pipe(
-                tap(res => {
-                    console.log(res)
+                finalize(() => {
+                    self.loading = false;
                 })
-            )
-                .subscribe((response) => {
-                    this.onSnpsChanged.next(response);
-                });
+            ).subscribe((response) => {
+                this.onSnpsChanged.next(response);
+            });
         }
     }
 
     getSnpPage(id, pageNumber) {
+        const self = this;
         let url = `${environment.annotationApi}/gotopage/${id}/${pageNumber}`;
-        this.httpClient.get(url)
-            .subscribe((response) => {
-                this.onSnpsChanged.next(response);
-            });
+
+        self.loading = true;
+        this.httpClient.get(url).pipe(
+            finalize(() => {
+                self.loading = false;
+            })
+        ).subscribe((response) => {
+            this.onSnpsChanged.next(response);
+        });
     }
 
     downloadSnp() {

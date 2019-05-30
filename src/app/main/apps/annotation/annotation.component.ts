@@ -66,7 +66,6 @@ export class AnnotationComponent implements OnInit {
   }
 
   downloadConfig() {
-
     let annotations = this.checklistSelection.selected as any[];
     let headers = annotations.reduce((annotationString, item) => {
       return annotationString + ' ' + item.id

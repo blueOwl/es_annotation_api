@@ -15,11 +15,15 @@
       Download
     </button>
   </div>
-  <div class="noc-section-body w-100-p h-100-p">
-    <ngx-datatable class="material w-100-p h-100-p" [rows]="genes" [columns]="columns"
-      [loadingIndicator]="loadingIndicator" [columnMode]="'force'" [headerHeight]="48" [footerHeight]="56"
-      [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
-      (page)='setPage($event)' [rowHeight]="60" [scrollbarH]="true" [scrollbarV]="true" [reorderable]="reorderable"
+  <div *ngIf="snpService.loading" class="noc-loading-container" fxLayout="column" fxLayoutAlign="center center">
+    <mat-progress-spinner class="example-margin" [color]="loadingSpinner.color" [mode]="loadingSpinner.mode">
+    </mat-progress-spinner>
+  </div>
+  <div class="noc-section-body w-100-p h-100-p" noctuaPerfectScrollbar>
+    <ngx-datatable class="material" [rows]="genes" [columns]="columns" [loadingIndicator]="loadingIndicator"
+      [columnMode]="'standard'" [headerHeight]="48" [footerHeight]="56" [externalPaging]="true"
+      [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)'
+      [rowHeight]="60" [scrollbarH]="false" [scrollbarV]="false" [reorderable]="reorderable"
       [selectionType]="'checkbox'">
     </ngx-datatable>
   </div>

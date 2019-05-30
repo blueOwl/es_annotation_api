@@ -27,18 +27,17 @@
           Position
         </div>
         <span fxFlex></span>
+        <mat-checkbox class="" color="primary" formControlName="all">All</mat-checkbox>
       </div>
       <div class="noc-section-body" fxLayout="row" fxLayoutAlign="start center">
-        <mat-form-field class=mr-4 fxFlex="30">
+        <mat-form-field class=mr-4 fxFlex="50">
           <mat-label>Start</mat-label>
           <input matInput formControlName="start" placeholder="Start">
         </mat-form-field>
-        <mat-form-field class="example-full-width" fxFlex="30">
+        <mat-form-field class="example-full-width" fxFlex="50">
           <mat-label>End</mat-label>
           <input matInput formControlName="end" placeholder="End">
         </mat-form-field>
-        <span fxFlex=""></span>
-        <mat-checkbox class="" color="primary" formControlName="all">All</mat-checkbox>
       </div>
     </div>
     <div class="" *ngSwitchCase="snpService.inputType.geneProduct.id">

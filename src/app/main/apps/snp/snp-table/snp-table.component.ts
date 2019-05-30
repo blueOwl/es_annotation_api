@@ -26,13 +26,18 @@ export class SnpTableComponent implements OnInit {
   loadingIndicator: boolean;
   reorderable: boolean;
 
+  loadingSpinner: any = {
+    color: 'primary',
+    mode: 'indeterminate'
+  }
+
   private _unsubscribeAll: Subject<any>;
 
   constructor(
     private _httpClient: HttpClient,
     private snpDialogService: SnpDialogService,
     public noctuaMenuService: NoctuaMenuService,
-    private snpService: SnpService
+    public snpService: SnpService
   ) {
     this.loadingIndicator = false;
     this.reorderable = true;
