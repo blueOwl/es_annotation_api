@@ -3,15 +3,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
-export class NoctuaMatchMediaService {
+export class NoctuaMatchMediaService
+{
     activeMediaQuery: string;
     onMediaChange: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-    constructor(private observableMedia: ObservableMedia) {
+    constructor(private observableMedia: ObservableMedia)
+    {
         this.activeMediaQuery = '';
 
         this.observableMedia.subscribe((change: MediaChange) => {
-            if (this.activeMediaQuery !== change.mqAlias) {
+            if ( this.activeMediaQuery !== change.mqAlias )
+            {
                 this.activeMediaQuery = change.mqAlias;
                 this.onMediaChange.next(change.mqAlias);
             }

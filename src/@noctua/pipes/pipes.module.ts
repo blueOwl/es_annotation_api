@@ -14,8 +14,8 @@ import { CamelCaseToDashPipe } from './camelCaseToDash.pipe';
         FilterPipe,
         CamelCaseToDashPipe
     ],
-    imports: [],
-    exports: [
+    imports     : [],
+    exports     : [
         KeysPipe,
         GetByIdPipe,
         HtmlToPlaintextPipe,
@@ -23,5 +23,6 @@ import { CamelCaseToDashPipe } from './camelCaseToDash.pipe';
         CamelCaseToDashPipe
     ]
 })
-export class NoctuaPipesModule {
+export class NoctuaPipesModule
+{
 }

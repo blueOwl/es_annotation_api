@@ -70,8 +70,8 @@ import { CdkTableModule } from '@angular/cdk/table';
         MatTabsModule,
         MatToolbarModule,
         MatTooltipModule,
-        MatTreeModule,
-        CdkTableModule
+        CdkTableModule,
+        MatTreeModule
     ],
     exports: [
         MatAutocompleteModule,
@@ -105,8 +105,8 @@ import { CdkTableModule } from '@angular/cdk/table';
         MatTabsModule,
         MatToolbarModule,
         MatTooltipModule,
-        MatTreeModule,
-        CdkTableModule
+        CdkTableModule,
+        MatTreeModule
     ]
 })
 
