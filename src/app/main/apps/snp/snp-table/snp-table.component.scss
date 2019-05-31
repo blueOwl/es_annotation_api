@@ -1,9 +1,46 @@
 @import "src/@noctua/scss/noctua";
 @import "src/@noctua.common/scss/noctua.common";
 
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
 :host {
   .noc-table-menu-row {
     height: 60px;
+  }
+
+  .mat-cell {
+    padding: 0 10px;
+    font-size: 12px !important;
+    color: #000;
+  }
+
+  .mat-header-cell {
+    padding: 0 10px;
+    font-size: 10px !important;
+    color: map-get($primary, default);
+    font-weight: bold;
+  }
+
+  .mat-header-cell,
+  .mat-header-row {
+    //padding: 0;
+    min-height: 40px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1001;
+    background-color: $noc-primary-color-light;
+    // font-size: 3px !important;
+  }
+
+  /*unnecessary to make table header fixed*/
+  .mat-header-row {
+    top: 0;
+    position: sticky;
+    z-index: 1;
+    background-color: inherit;
+    text-align: center;
   }
 
   .noc-loading-container {
@@ -16,13 +53,6 @@
     z-index: 1000;
   }
 
-  .ngx-datatable.scroll-vertical .datatable-body {
-    overflow-y: auto;
-  }
-
-  .ngx-datatable.scroll-vertical {
-    height: 70vh;
-  }
 
   .noc-form-section {
     width: 100%;
