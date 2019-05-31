@@ -5,7 +5,7 @@
       Configuration
     </div>
     <span fxFlex></span>
-    <button mat-button class="noc-action-button" [matMenuTriggerFor]="configurationMenu">
+    <button mat-stroked-button class="noc-rounded-button noc-sm" [matMenuTriggerFor]="configurationMenu">
       CHANGE
     </button>
     <mat-menu #configurationMenu="matMenu" class="noc-dropdown-menu">
@@ -27,7 +27,6 @@
           Position
         </div>
         <span fxFlex></span>
-        <mat-checkbox class="" color="primary" formControlName="all">All</mat-checkbox>
       </div>
       <div class="noc-section-body" fxLayout="row" fxLayoutAlign="start center">
         <mat-form-field class=mr-4 fxFlex="50">

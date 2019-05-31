@@ -58,13 +58,14 @@
     }
 
     .noc-section-header {
-      height: 30px;
+      padding: 0 8px;
+      @include deep-height(35px);
       background-color: $noc-primary-color-light;
 
       .noc-section-heading {
-        padding-left: 8px;
+
         font-size: 12px;
-        line-height: 40px;
+        line-height: 35px;
         color: #555;
       }
 
