@@ -15,6 +15,16 @@
       <div class="ann-detail-row" fxLayout="row" fxLayoutAlign="start start">
         <div class="ann-title" fxFlex="30%">
           <div class="text-truncate">
+            ID
+          </div>
+        </div>
+        <div class="ann-description" fxFlex="70%">
+          {{  annotationDetail.id }}
+        </div>
+      </div>
+      <div class="ann-detail-row" fxLayout="row" fxLayoutAlign="start start">
+        <div class="ann-title" fxFlex="30%">
+          <div class="text-truncate">
             Name
           </div>
         </div>
@@ -39,7 +49,7 @@
           </div>
         </div>
         <div class="ann-description" fxFlex="70%">
-          {{  annotationDetail.parent }}
+          {{  annotationDetail.parent_id }}
         </div>
       </div>
     </div>

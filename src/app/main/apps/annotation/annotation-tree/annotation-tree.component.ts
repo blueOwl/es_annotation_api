@@ -78,7 +78,7 @@ export class AnnotationTreeComponent implements OnInit {
     return new AnnotationFlatNode(
       node.id,
       node.name,
-      node.details,
+      node.detail,
       node.parent_id,
       !!node.children,
       level);

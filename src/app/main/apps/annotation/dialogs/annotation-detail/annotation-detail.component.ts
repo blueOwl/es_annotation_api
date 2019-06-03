@@ -26,6 +26,7 @@ export class AnnotationDetailDialogComponent implements OnInit, OnDestroy {
     this._unsubscribeAll = new Subject();
 
     this.annotationDetail = this._data.annotation
+    console.log(this.annotationDetail)
   }
 
   ngOnInit() {

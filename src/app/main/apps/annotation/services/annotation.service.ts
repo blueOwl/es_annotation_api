@@ -38,10 +38,10 @@ export class AnnotationService {
         this.httpClient.get<Annotation[]>(`${api}/anno_tree/HRC`)
             .subscribe((response: Annotation[]) => {
                 this.annotation = response['header_tree_array'];
-                console.log(this.annotation)
                 this.annotationNodes = this._buildAnnotationTree(this.annotation);
-                console.log(this.annotationNodes);
                 this.onAnnotationTreeChanged.next(this.annotationNodes);
+
+                console.log(this.annotationNodes)
             });
     }
 
@@ -53,6 +53,18 @@ export class AnnotationService {
         this.activeAnnotation = annotation;
     }
 
+    downloadConfig(configText: string) {
+        var blob = new Blob([configText], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "config.txt");
+    }
+
+    getNodeName(nodeId) {
+
+    }
+
+    getChildren() {
+
+    }
 
     private _buildAnnotationTree(annotation: Annotation[]): AnnotationNode[] {
         let getNestedChildren = (arr, parent_id, level) => {
@@ -73,10 +85,7 @@ export class AnnotationService {
         return getNestedChildren(annotation, null, 1);
     }
 
-    downloadConfig(configText: string) {
-        var blob = new Blob([configText], { type: "text/plain;charset=utf-8" });
-        saveAs(blob, "config.txt");
-    }
+
 
 
     private _addHeirarchyLevel(annotationNodes: Annotation[]) {
