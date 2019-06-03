@@ -12,6 +12,7 @@ import { Annotation, AnnotationNode, AnnotationFlatNode } from './../models/anno
 import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 import { AnnotationService } from './../services/annotation.service';
 import { SnpService } from './../../snp/services/snp.service'
+import { AnnotationDialogService } from '../services/dialog.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class AnnotationTreeComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;
 
   constructor(private router: Router,
+    private annotationDialogService: AnnotationDialogService,
     private route: ActivatedRoute,
     public noctuaMenuService: NoctuaMenuService,
     private annotationService: AnnotationService,
@@ -69,7 +71,7 @@ export class AnnotationTreeComponent implements OnInit {
   }
 
   selectAnnotation(annotation) {
-    //do nothing for now
+    this.annotationDialogService.openAnnotationDetailDialog(annotation);
   }
 
   transformer = (node: AnnotationNode, level: number) => {
