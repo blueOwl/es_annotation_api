@@ -11,6 +11,7 @@ import { tap, finalize } from 'rxjs/operators';
 })
 export class SnpService {
     onSnpsChanged: BehaviorSubject<any>;
+    onSnpChanged: BehaviorSubject<any>;
     onSnpsDownloadReady: BehaviorSubject<any>;
     loading: boolean = false;
     downloadId
@@ -43,6 +44,7 @@ export class SnpService {
     constructor(private httpClient: HttpClient) {
         this.onSnpsChanged = new BehaviorSubject([]);
         this.onSnpsDownloadReady = new BehaviorSubject(null);
+        this.onSnpChanged = new BehaviorSubject(null);
 
         this.inputTypes.selected = this.inputTypes.options[0]
     }

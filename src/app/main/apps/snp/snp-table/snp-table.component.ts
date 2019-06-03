@@ -118,6 +118,13 @@ export class SnpTableComponent implements OnInit {
     }
   }
 
+  selectSnp(row) {
+    this.snpService.onSnpChanged.next(row);
+
+    this.noctuaMenuService.openRightDrawer();
+
+  }
+
   ngOnDestroy(): void {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();

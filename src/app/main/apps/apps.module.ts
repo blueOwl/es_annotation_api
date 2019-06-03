@@ -6,6 +6,7 @@ import { SnpTableComponent } from './snp/snp-table/snp-table.component';
 import { AnnotationTreeComponent } from './annotation/annotation-tree/annotation-tree.component';
 import { AnnotationComponent } from './annotation/annotation.component';
 import { DownloadReadyComponent } from './snp/snp-table/download-ready/download-ready.component';
+import { SnpDetailComponent } from './snp/snp-detail/snp-detail.component';
 
 const routes = [];
 
@@ -15,6 +16,7 @@ const routes = [];
     AnnotationComponent,
     AnnotationTreeComponent,
     DownloadReadyComponent,
+    SnpDetailComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -23,6 +25,7 @@ const routes = [];
   ],
   exports: [
     SnpTableComponent,
+    SnpDetailComponent,
     AnnotationComponent,
     AnnotationTreeComponent
   ],

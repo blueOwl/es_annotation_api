@@ -13,37 +13,14 @@ const each = require('lodash/forEach');
 })
 export class NoctuaMenuService {
 
-  _leftPanelMenu = {
-    geneListAnalysis: {
-      id: 'geneListAnalysis',
-      label: 'Gene List Analysis'
-    },
-    browser: {
-      id: 'browser',
-      label: 'Browse'
-    },
-    sequenceSearch: {
-      id: 'sequenceSearch',
-      label: 'Sequence Search'
-    },
-    cSNPScoring: {
-      id: 'cSNPScoring',
-      label: 'cSNP Scoring'
-    }
-  }
-
   selectedLeftPanel;
 
   private leftDrawer: MatDrawer;
   private rightDrawer: MatDrawer;
 
   constructor() {
-    this.selectedLeftPanel = this._leftPanelMenu.geneListAnalysis;
   }
 
-  get leftPanelMenu() {
-    return this._leftPanelMenu;
-  }
 
   get noctuaTypes() {
     return noctuaTypes;

@@ -4,11 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatDrawer } from '@angular/material';
 
-import { NoctuaTranslationLoaderService } from '@noctua/services/translation-loader.service';
-
-
 import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
-import { locale as english } from './i18n/en';
 
 @Component({
   selector: 'app-home',
@@ -27,13 +23,9 @@ export class HomeComponent implements OnInit {
   searchForm: FormGroup;
   leftPanelMenu;
 
-  constructor(private noctuaTranslationLoader: NoctuaTranslationLoaderService,
-    public noctuaMenuService: NoctuaMenuService,
+  constructor(public noctuaMenuService: NoctuaMenuService,
     private route: ActivatedRoute,
     private router: Router) {
-    this.noctuaTranslationLoader.loadTranslations(english);
-
-    this.leftPanelMenu = this.noctuaMenuService.leftPanelMenu;
   }
 
   ngOnInit() {

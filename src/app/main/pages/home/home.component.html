@@ -19,5 +19,10 @@
     <mat-drawer-content class="w-100-p">
       <ann-snp-table class="w-100-p h-100-p"></ann-snp-table>
     </mat-drawer-content>
+    <mat-drawer #rightDrawer class="noc-right-drawer" noctuaPerfectScrollbar mode="side" position="end">
+      <div class="h-100-p">
+        <ann-snp-detail [panelDrawer]="rightDrawer"> </ann-snp-detail>
+      </div>
+    </mat-drawer>
   </mat-drawer-container>
 </div>
