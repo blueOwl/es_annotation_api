@@ -21,7 +21,7 @@ import { AnnotationDialogService } from '../services/dialog.service';
   styleUrls: ['./annotation-tree.component.scss'],
 })
 export class AnnotationTreeComponent implements OnInit {
-  @ViewChild('tree') tree;
+  @ViewChild('tree', { static: true }) tree;
   @ViewChildren(MatTreeNode, { read: ElementRef }) treeNodes: ElementRef[];
 
   @Input('checklistSelection')

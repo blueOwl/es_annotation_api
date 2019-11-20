@@ -35,7 +35,7 @@ export class SnpTableComponent implements OnInit {
     mode: 'indeterminate'
   }
 
-  @ViewChild(MatPaginator)
+  @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
 
   displayedColumns = [];
