@@ -81,9 +81,9 @@ export class SnpTableComponent implements OnInit {
   setSnpPage(snp) {
     if (snp.headers) {
       this.snp = snp;
-      this.snpService.downloadId = this.snp.page_id ? this.snp.page_id : null;
-      this.page.pageNumber = this.snp.page_info.page_num - 1;
-      this.page.totalElements = this.snp.page_info.total_page
+      // this.snpService.downloadId = this.snp.page_id ? this.snp.page_id : null;
+      //  this.page.pageNumber = this.snp.page_info.page_num - 1;
+      // this.page.totalElements = this.snp.page_info.total_page
       this.columns = snp.headers.map((header) => (
         {
           columnDef: header,
@@ -91,12 +91,14 @@ export class SnpTableComponent implements OnInit {
         }));
 
       this.displayedColumns = this.columns.map(c => c.columnDef);
-      this.genes = _.map(snp.data, (srcRow) => {
-        return srcRow.reduce((destRow, item, i) => {
-          destRow[snp.headers[i]] = item
-          return destRow
-        }, {});
-      });
+
+      this.genes = snp.data
+      /*    this.genes = _.map(snp.data, (srcRow) => {
+           return srcRow.reduce((destRow, item, i) => {
+             destRow[snp.headers[i]] = item
+             return destRow
+           }, {});
+         }); */
 
       if (snp.gene_info) {
         this.gene = new Gene()
