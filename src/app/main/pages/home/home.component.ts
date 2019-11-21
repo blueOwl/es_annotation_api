@@ -13,10 +13,10 @@ import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild('leftDrawer')
+  @ViewChild('leftDrawer', { static: true })
   leftDrawer: MatDrawer;
 
-  @ViewChild('rightDrawer')
+  @ViewChild('rightDrawer', { static: true })
   rightDrawer: MatDrawer;
 
   searchCriteria: any = {};

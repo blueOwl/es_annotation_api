@@ -55,7 +55,7 @@ export class SnpService {
 
     getSnps(query) {
         const self = this;
-        let url = environment.annotationApi
+        let url = environment.annotationApi;
 
         switch (this.inputTypes.selected) {
             case this.inputType.chromosome:
