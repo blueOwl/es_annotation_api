@@ -70,8 +70,8 @@ export class AnnotationComponent implements OnInit {
   }
 
   onFileChange(event) {
-    let reader = new FileReader();
-    let ids = this.annotationForm.controls.uploadList['controls'].ids;
+    const reader = new FileReader();
+    const ids = this.annotationForm.controls.uploadList['controls'].ids;
 
     //console.log(event, control)
 
@@ -91,8 +91,8 @@ export class AnnotationComponent implements OnInit {
   }
 
   downloadConfig() {
-    let annotations = this.checklistSelection.selected as any[];
-    let headers = annotations.reduce((annotationString, item) => {
+    const annotations = this.checklistSelection.selected as any[];
+    const headers = annotations.reduce((annotationString, item) => {
       return annotationString + ' ' + item.id
     }, []);
 
@@ -108,16 +108,28 @@ export class AnnotationComponent implements OnInit {
   }
 
   submit() {
-    let query = this.annotationForm.value;
-    let annotations = this.checklistSelection.selected as any[];
-    let headers = annotations.reduce((annotationString, item) => {
-      return annotationString + ' ' + item.id
+    const query = this.annotationForm.value;
+    const annotations = this.checklistSelection.selected as any[];
+    const headers = annotations.map((item) => {
+      return item.name;
     }, []);
 
     if (headers.length > 0) {
-      query['headers'] = headers.trim()
+      //query['headers'] = headers.trim()
       // this.snpService.getSnps(query); 
-      this.search('t', 'all', 1, annotations.map((ann) => {
+      const quer = {
+        // q: 'The',
+        '_source': ['ANNOVAR_ensembl__list_id', 'ANNOVAR_refseq_Effect', 'pos'],
+        'query': {
+          'bool': {
+            'filter': [
+              { 'term': { 'chr': '2' } },
+              { 'range': { 'pos': { 'gte': 10, 'lte': 20000 } } }]
+          }
+        }
+      };
+
+      this.search(quer, 'all', 1, annotations.map((ann) => {
         return ann.name;
       }));
     } else {
@@ -129,8 +141,10 @@ export class AnnotationComponent implements OnInit {
    * Elasticsearch misbehaves if users enter symbolic characters. User this method to strip out any such characters.
    * @param query - user search query.
    */
-  static sanitized(query): string {
-    return query.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+  static sanitized(query) {
+    //return query.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+
+    return query
   }
 
 
@@ -141,7 +155,7 @@ export class AnnotationComponent implements OnInit {
    * @param index - ES index to search.
    * @param page  - page.
    */
-  search(query, index, page, headers) {
+  search(query, index, page, headers?) {
     const sanitized = AnnotationComponent.sanitized(query);
     //if (sanitized.length) {
     this.searchResponse = '';
@@ -168,7 +182,7 @@ export class AnnotationComponent implements OnInit {
         this.searchResponse = 'Oops! Something went wrong... ERROR: ' + err.error;
       });
     } else {
-      this.es.getPaginatedDocuments(sanitized, page).then((body) => {
+      this.es.getSnps(sanitized, page).then((body) => {
         if (body.hits.total.value > 0) {
           this.esData = body.hits.hits as [];
           //   this.totalHits = body.hits.total;

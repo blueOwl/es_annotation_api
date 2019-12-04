@@ -92,7 +92,7 @@ export class SnpTableComponent implements OnInit {
 
       this.displayedColumns = this.columns.map(c => c.columnDef);
 
-      this.genes = snp.data
+      this.genes = snp.data;
       /*    this.genes = _.map(snp.data, (srcRow) => {
            return srcRow.reduce((destRow, item, i) => {
              destRow[snp.headers[i]] = item

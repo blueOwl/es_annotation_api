@@ -39,6 +39,14 @@ export class SnpSearchService {
     return this.client.create(value);
   }
 
+  getSnps(_query, _page, _index?, _type?): any {
+    return this.client.search({
+      from: (_page - 1) * this.perPage,
+      size: this.perPage,
+      body: _query
+    });
+  }
+
   getAllDocuments(_query, _index?, _type?): any {
     if (_index !== undefined) {
       if (_type !== undefined) {
@@ -124,7 +132,7 @@ export class SnpSearchService {
 
   private connect() {
     this.client = new Client({
-      host: environment.esHost
+      host: environment.annotationApi
       // log: 'trace'
     });
   }
