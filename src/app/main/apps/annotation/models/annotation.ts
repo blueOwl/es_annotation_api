@@ -3,6 +3,7 @@ export interface Annotation {
     name: string;
     detail: string;
     parent_id: number;
+    leaf: boolean;
 }
 
 export class AnnotationNode {
@@ -10,6 +11,7 @@ export class AnnotationNode {
     name: string;
     detail: string;
     parent_id: number;
+    leaf: boolean;
     level: number;
     expandable: boolean;
     children: AnnotationNode[];
@@ -21,6 +23,7 @@ export class AnnotationFlatNode {
         public name: string,
         public detail: string,
         public parent_id: number,
+        public leaf: boolean,
         public expandable: boolean,
         public level: number) { }
 }

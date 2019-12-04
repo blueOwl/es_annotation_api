@@ -110,16 +110,18 @@ export class AnnotationComponent implements OnInit {
   submit() {
     const query = this.annotationForm.value;
     const annotations = this.checklistSelection.selected as any[];
-    const headers = annotations.map((item) => {
-      return item.name;
+    const headers = annotations.map((item: AnnotationFlatNode) => {
+      return item.leaf ? item.name : false;
     }, []);
+
+    console.log(headers)
 
     if (headers.length > 0) {
       //query['headers'] = headers.trim()
       // this.snpService.getSnps(query); 
       const quer = {
         // q: 'The',
-        '_source': ['ANNOVAR_ensembl__list_id', 'ANNOVAR_refseq_Effect', 'pos'],
+        '_source': headers,
         'query': {
           'bool': {
             'filter': [
