@@ -67,15 +67,15 @@ export class AnnotationComponent implements OnInit {
   submit() {
     const query = this.annotationForm.value;
     const annotations = this.checklistSelection.selected as any[];
-    const sources = annotations.map((item: AnnotationFlatNode) => {
+    const source = annotations.map((item: AnnotationFlatNode) => {
       return item.name; //item.leaf ? item.name : false;
     }, []);
 
-    query.sources = sources;
+    query.source = source;
 
     console.log(query);
 
-    if (sources.length > 0) {
+    if (source.length > 0) {
       this.snpService.getSnps(query, 1);
     } else {
       this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
@@ -98,12 +98,12 @@ export class AnnotationComponent implements OnInit {
 
   downloadConfig() {
     const annotations = this.checklistSelection.selected as any[];
-    const sources = annotations.reduce((annotationString, item) => {
+    const source = annotations.reduce((annotationString, item) => {
       return annotationString + ' ' + item.id
     }, []);
 
-    if (sources.length > 0) {
-      this.annotationService.downloadConfig(sources.trim());
+    if (source.length > 0) {
+      this.annotationService.downloadConfig(source.trim());
     } else {
       this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
     }

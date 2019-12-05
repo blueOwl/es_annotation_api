@@ -20,7 +20,7 @@
     </mat-progress-spinner>
   </div>
   <div *ngIf="snpPage" class="noc-drawer-body" fxLayout="column" fxLayoutAlign="start stretch" noctuaPerfectScrollbar>
-    <table fxFlex="1 1 auto" mat-table [dataSource]="snpsnpPage.snps" class="">
+    <table fxFlex="1 1 auto" mat-table [dataSource]="snpPage.snps" class="">
       <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
         <th mat-header-cell *matHeaderCellDef> {{column}} </th>
         <td mat-cell *matCellDef="let element"> {{element[column]}} </td>

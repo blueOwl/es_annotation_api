@@ -65,7 +65,7 @@ export class SnpService {
         self.loading = true;
 
         const query = {
-            '_source': annotationQuery.sources,
+            '_source': annotationQuery.source,
             'query': {
                 'bool': {
                     'filter': [
@@ -107,8 +107,9 @@ export class SnpService {
 
                 snpPage.query = query;
                 snpPage.total = body.hits.total.value;
+                snpPage.size = self.snpResultsSize;
                 snpPage.snps = snpData;
-                snpPage.sources = query._sources;
+                snpPage.source = query._source;
 
                 this.onSnpsChanged.next(snpPage);
             } else {

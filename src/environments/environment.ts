@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   annotationApi: 'http://68.181.46.17:3404/vs-index', //'http://bioghost.usc.edu:5000',
-  snpResultsSize: 10
+  snpResultsSize: 50
 };
 
 /*

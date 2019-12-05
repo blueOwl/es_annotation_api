@@ -32,7 +32,7 @@ export class SnpTableComponent implements OnInit {
   loadingSpinner: any = {
     color: 'primary',
     mode: 'indeterminate'
-  }
+  };
 
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
@@ -72,15 +72,15 @@ export class SnpTableComponent implements OnInit {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((res) => {
         if (res && res.url) {
-          this.snpDialogService.openDownloadToast(res)
+          this.snpDialogService.openDownloadToast(res);
         }
       });
   }
 
   setSnpPage(snpPage: SnpPage) {
-    if (snpPage.sources) {
+    if (snpPage.source) {
       this.snpPage = snpPage;
-      this.columns = snpPage.sources.map((header) => (
+      this.columns = snpPage.source.map((header) => (
         {
           columnDef: header,
           cell: (element: any) => `${element[header]}`

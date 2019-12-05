@@ -6,6 +6,6 @@ export class Page {
 
 export class SnpPage extends Page {
     query;
-    sources: string[];
+    source: string[];
     snps: any;
 }
