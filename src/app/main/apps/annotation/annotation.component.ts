@@ -8,7 +8,6 @@ import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@ang
 import { AnnotationService } from './services/annotation.service';
 import { SnpDialogService } from '../snp/services/dialog.service';
 import { environment } from 'environments/environment';
-import { SnpSearchService } from '../snp/services/search.service';
 
 @Component({
   selector: 'ann-annotation',
@@ -33,7 +32,6 @@ export class AnnotationComponent implements OnInit {
 
   constructor(public noctuaMenuService: NoctuaMenuService,
     private annotationService: AnnotationService,
-    private es: SnpSearchService,
     private snpDialogService: SnpDialogService,
     private cd: ChangeDetectorRef,
     public snpService: SnpService) {
@@ -69,6 +67,33 @@ export class AnnotationComponent implements OnInit {
     });
   }
 
+
+
+  clear() {
+    this.checklistSelection.clear();
+  }
+
+  submit() {
+    const query = this.annotationForm.value;
+    const annotations = this.checklistSelection.selected as any[];
+    const sources = annotations.map((item: AnnotationFlatNode) => {
+      return item.name; //item.leaf ? item.name : false;
+    }, []);
+
+    query.sources = sources;
+
+    console.log(query);
+
+    if (sources.length > 0) {
+      this.snpService.getSnps(query, 1);
+    } else {
+      this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
+    }
+  }
+
+
+
+
   onFileChange(event) {
     const reader = new FileReader();
     const ids = this.annotationForm.controls.uploadList['controls'].ids;
@@ -100,140 +125,6 @@ export class AnnotationComponent implements OnInit {
       this.annotationService.downloadConfig(headers.trim());
     } else {
       this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
-    }
-  }
-
-  clear() {
-    this.checklistSelection.clear();
-  }
-
-  submit() {
-    const query = this.annotationForm.value;
-    const annotations = this.checklistSelection.selected as any[];
-    const headers = annotations.map((item: AnnotationFlatNode) => {
-      return item.leaf ? item.name : false;
-    }, []);
-
-    console.log(headers)
-
-    if (headers.length > 0) {
-      //query['headers'] = headers.trim()
-      // this.snpService.getSnps(query); 
-      const quer = {
-        // q: 'The',
-        '_source': headers,
-        'query': {
-          'bool': {
-            'filter': [
-              { 'term': { 'chr': '2' } },
-              { 'range': { 'pos': { 'gte': 10, 'lte': 20000 } } }]
-          }
-        }
-      };
-
-      this.search(quer, 'all', 1, annotations.map((ann) => {
-        return ann.name;
-      }));
-    } else {
-      this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
-    }
-  }
-
-  /**
-   * Elasticsearch misbehaves if users enter symbolic characters. User this method to strip out any such characters.
-   * @param query - user search query.
-   */
-  static sanitized(query) {
-    //return query.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-
-    return query
-  }
-
-
-
-  /**
-   * Search function.
-   * @param query - user input.
-   * @param index - ES index to search.
-   * @param page  - page.
-   */
-  search(query, index, page, headers?) {
-    const sanitized = AnnotationComponent.sanitized(query);
-    //if (sanitized.length) {
-    this.searchResponse = '';
-    this.currentPage = page;
-    // Search all indexes on ES
-    console.log('snpData')
-    if (index !== 'all') {
-      this.es.getPaginatedDocuments(sanitized, page, index).then((body) => {
-        if (body.hits.total > 0) {
-          this.esData = body.hits.hits;
-          const snpData = this.esData.map((snp) => {
-            return snp._source;
-          })
-
-          console.log(snpData)
-          this.totalHits = body.hits.total;
-          this.searchTime = body.hits.time;
-          this.totalPages = Array(Math.ceil(body.hits.total / this.PER_PAGE)).fill(4);
-          this.snpService.onSnpsChanged.next(snpData);
-        } else {
-          this.searchResponse = 'No matches found';
-        }
-      }, (err) => {
-        this.searchResponse = 'Oops! Something went wrong... ERROR: ' + err.error;
-      });
-    } else {
-      this.es.getSnps(sanitized, page).then((body) => {
-        if (body.hits.total.value > 0) {
-          this.esData = body.hits.hits as [];
-          //   this.totalHits = body.hits.total;
-          //   this.searchTime = body.took;
-          //  this.totalPages = Array(Math.ceil(body.hits.total / this.PER_PAGE)).fill(4);
-          const snpData = this.esData.map((snp) => {
-            return snp._source;
-          })
-          const data = {
-            data: snpData,
-            headers: headers
-          }
-
-          console.log(snpData)
-          this.snpService.onSnpsChanged.next(data);
-        } else {
-          this.searchResponse = 'No matches found';
-        }
-      }, (err) => {
-        this.searchResponse = 'Oops! Something went wrong... ERROR: ' + err.error;
-      });
-    }
-    //   } else {
-    //    this.searchResponse = 'Nothing found';
-    //  }
-
-  }
-
-  nextPage(query: string, index: string) {
-    const sanitized = AnnotationComponent.sanitized(query);
-    if (sanitized.length) {
-      if (this.currentPage < this.totalPages.length) {
-        this.search(query, index, this.currentPage + 1);
-      }
-    } else {
-      this.esData = [];
-      this.searchResponse = 'Nothing found';
-    }
-  }
-
-  previousPage(query: string, index: string) {
-    const sanitized = AnnotationComponent.sanitized(query);
-    if (sanitized.length) {
-      if (this.currentPage - 1 >= 1) {
-        this.search(query, index, this.currentPage - 1);
-      }
-    } else {
-      this.esData = [];
-      this.searchResponse = 'Nothing found';
     }
   }
 }
