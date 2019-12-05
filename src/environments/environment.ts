@@ -4,9 +4,8 @@
 
 export const environment = {
   production: false,
-  annotationApi: 'http://bioghost.usc.edu:5000',
-  esHost: 'http://68.181.46.17:3403/vs-index/',
-  esResultSize: 10
+  annotationApi: 'http://68.181.46.17:3404/vs-index', //'http://bioghost.usc.edu:5000',
+  snpResultsSize: 50
 };
 
 /*
