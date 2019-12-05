@@ -6,15 +6,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { tap, finalize } from 'rxjs/operators';
 import { Client } from 'elasticsearch-browser';
+import { SnpPage } from '../models/page';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SnpService {
-    onSnpsChanged: BehaviorSubject<any>;
+    snpResultsSize = environment.snpResultsSize;
+    onSnpsChanged: BehaviorSubject<SnpPage>;
     onSnpChanged: BehaviorSubject<any>;
     onSnpsDownloadReady: BehaviorSubject<any>;
-    perPage = environment.esResultSize;
     loading = false;
     downloadId;
 
@@ -45,7 +46,7 @@ export class SnpService {
     };
 
     constructor(private httpClient: HttpClient) {
-        this.onSnpsChanged = new BehaviorSubject([]);
+        this.onSnpsChanged = new BehaviorSubject(null);
         this.onSnpsDownloadReady = new BehaviorSubject(null);
         this.onSnpChanged = new BehaviorSubject(null);
         this.inputTypes.selected = this.inputTypes.options[0];
@@ -60,9 +61,10 @@ export class SnpService {
     }
 
     getSnps(annotationQuery: any, page: number): any {
+        const self = this;
+        self.loading = true;
 
         const query = {
-            // q: 'The',
             '_source': annotationQuery.sources,
             'query': {
                 'bool': {
@@ -84,47 +86,37 @@ export class SnpService {
                 break;
         }
 
+        return self.getSnpsPage(query, page);
+    }
+
+    getSnpsPage(query: any, page: number): any {
+        const self = this;
+        self.loading = true;
+
         return this.client.search({
-            from: (page - 1) * this.perPage,
-            size: this.perPage,
+            from: (page - 1) * this.snpResultsSize,
+            size: this.snpResultsSize,
             body: query
         }).then((body) => {
             if (body.hits.total.value > 0) {
+                const snpPage = new SnpPage();
                 const esData = body.hits.hits as [];
-                //   this.totalHits = body.hits.total;
-                //   this.searchTime = body.took;
-                //  this.totalPages = Array(Math.ceil(body.hits.total / this.PER_PAGE)).fill(4);
                 const snpData = esData.map((snp: any) => {
                     return snp._source;
-                })
-                const data = {
-                    data: snpData,
-                    headers: annotationQuery.sources
-                };
+                });
 
-                console.log(data)
-                this.onSnpsChanged.next(data);
+                snpPage.query = query;
+                snpPage.total = body.hits.total.value;
+                snpPage.snps = snpData;
+                snpPage.sources = query._sources;
+
+                this.onSnpsChanged.next(snpPage);
             } else {
-                this.onSnpsChanged.next([]);
+                this.onSnpsChanged.next(null);
             }
+            self.loading = false;
         }, (err) => {
-
-        });
-    }
-
-
-
-    getSnpPage(id, pageNumber) {
-        const self = this;
-        const url = `${environment.annotationApi}/gotopage/${id}/${pageNumber}`;
-
-        self.loading = true;
-        this.httpClient.get(url).pipe(
-            finalize(() => {
-                self.loading = false;
-            })
-        ).subscribe((response) => {
-            this.onSnpsChanged.next(response);
+            self.loading = false;
         });
     }
 

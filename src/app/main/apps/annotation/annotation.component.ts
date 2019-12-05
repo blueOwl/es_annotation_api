@@ -25,7 +25,7 @@ export class AnnotationComponent implements OnInit {
   searchTime: number;
   currentPage: number;
   searchResponse = '';
-  PER_PAGE = environment.esResultSize;
+  PER_PAGE = environment.snpResultsSize;
   totalPages: any;
 
   public esData: any[];
@@ -39,16 +39,7 @@ export class AnnotationComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*    this.es.isAvailable().then(() => {
-       this.status = 'OK';
-       this.isConnected = true;
-     }, error => {
-       this.status = 'ERROR';
-       this.isConnected = false;
-       console.error('Server is down', error);
-     }).then(() => {
-       this.cd.detectChanges();
-     }); */
+
   }
 
   createAnnotationForm() {
@@ -91,38 +82,28 @@ export class AnnotationComponent implements OnInit {
     }
   }
 
-
-
-
   onFileChange(event) {
     const reader = new FileReader();
     const ids = this.annotationForm.controls.uploadList['controls'].ids;
-
-    //console.log(event, control)
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsText(file);
 
       reader.onload = () => {
-        //    this.geneForm.patchValue({
-        //   file: reader.result
-        //   });
-        // console.log(reader.result)
         ids.setValue(reader.result);
-        // this.cd.markForCheck();
       };
     }
   }
 
   downloadConfig() {
     const annotations = this.checklistSelection.selected as any[];
-    const headers = annotations.reduce((annotationString, item) => {
+    const sources = annotations.reduce((annotationString, item) => {
       return annotationString + ' ' + item.id
     }, []);
 
-    if (headers.length > 0) {
-      this.annotationService.downloadConfig(headers.trim());
+    if (sources.length > 0) {
+      this.annotationService.downloadConfig(sources.trim());
     } else {
       this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
     }
