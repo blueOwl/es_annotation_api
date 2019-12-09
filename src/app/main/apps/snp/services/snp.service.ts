@@ -72,7 +72,7 @@ export class SnpService {
                         { 'term': { 'chr': annotationQuery.chrom } },
                         { 'range': { 'pos': { 'gte': annotationQuery.start, 'lte': annotationQuery.end } } }]
                 }
-            },
+            }
         };
 
         switch (this.inputTypes.selected) {
@@ -93,9 +93,10 @@ export class SnpService {
         const self = this;
         self.loading = true;
 
+        query.from = (page - 1) * this.snpResultsSize;
+        query.size = this.snpResultsSize;
+
         return this.client.search({
-            from: (page - 1) * this.snpResultsSize,
-            size: this.snpResultsSize,
             body: query
         }).then((body) => {
             if (body.hits.total.value > 0) {
