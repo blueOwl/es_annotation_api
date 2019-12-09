@@ -64,23 +64,24 @@ export class SnpService {
         const self = this;
         self.loading = true;
 
-        const query = {
+        const query: any = {
             '_source': annotationQuery.source,
-            'query': {
-                'bool': {
-                    'filter': [
-                        { 'term': { 'chr': annotationQuery.chrom } },
-                        { 'range': { 'pos': { 'gte': annotationQuery.start, 'lte': annotationQuery.end } } }]
-                }
-            }
         };
 
         switch (this.inputTypes.selected) {
             case this.inputType.chromosome:
+                query.query = {
+                    'bool': {
+                        'filter': [
+                            { 'term': { 'chr': annotationQuery.chrom } },
+                            { 'range': { 'pos': { 'gte': annotationQuery.start, 'lte': annotationQuery.end } } }]
+                    }
+                }
                 break;
             case this.inputType.geneProduct:
                 break;
             case this.inputType.rsID:
+                //    q = rs_dbSNP151:% 22rs555419020 % 22
                 break;
             case this.inputType.chromosomeList:
                 break;
