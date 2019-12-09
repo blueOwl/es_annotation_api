@@ -65,7 +65,7 @@ export class SnpService {
         self.loading = true;
 
         const query: any = {
-            '_source': annotationQuery.source,
+            '_source': [...['chr', 'pos', 'ref', 'alt'], ...annotationQuery.source],
         };
 
         switch (this.inputTypes.selected) {
