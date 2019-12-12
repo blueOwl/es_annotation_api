@@ -1,5 +1,5 @@
 export class Gene {
-    uniprotId: string;
+    gene_id: string;
     contig: string
     start: number;
     end: number;

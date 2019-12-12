@@ -3,8 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  dataset: 'vs-index',
   production: false,
-  annotationApi: 'http://68.181.46.17:3404/vs-index', //'http://bioghost.usc.edu:5000',
+  annotationApi: 'http://134.209.62.197:3404',//'http://68.181.46.17:3404/vs-index', //'http://bioghost.usc.edu:5000',
   snpResultsSize: 50
 };
 

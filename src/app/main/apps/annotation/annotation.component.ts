@@ -46,8 +46,8 @@ export class AnnotationComponent implements OnInit {
     return new FormGroup({
       chrom: new FormControl(18),
       chromList: new FormControl(),
-      geneProduct: new FormControl('Q8NBV4'),
-      rsID: new FormControl('rs111739080'),
+      geneProduct: new FormControl('ENSG00000263006'),
+      rsID: new FormControl('rs559687999'),
       start: new FormControl(1),
       end: new FormControl(500000),
       all: new FormControl(false),
@@ -73,7 +73,7 @@ export class AnnotationComponent implements OnInit {
 
     query.source = source;
 
-    console.log(query);
+    //console.log(query);
 
     if (source.length > 0) {
       this.snpService.getSnps(query, 1);

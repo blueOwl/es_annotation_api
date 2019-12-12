@@ -65,38 +65,61 @@ export class SnpService {
         self.loading = true;
 
         const query: any = {
-            '_source': [...['chr', 'pos', 'ref', 'alt'], ...annotationQuery.source],
+            '_source': [...['chr', 'pos', 'ref', 'alt', 'rs_dbSNP151'], ...annotationQuery.source],
         };
 
         switch (this.inputTypes.selected) {
             case this.inputType.chromosome:
-                query.query = {
-                    'bool': {
-                        'filter': [
-                            { 'term': { 'chr': annotationQuery.chrom } },
-                            { 'range': { 'pos': { 'gte': annotationQuery.start, 'lte': annotationQuery.end } } }]
+                {
+                    query.query = {
+                        'bool': {
+                            'filter': [
+                                { 'term': { 'chr': annotationQuery.chrom } },
+                                { 'range': { 'pos': { 'gte': annotationQuery.start, 'lte': annotationQuery.end } } }]
+                        }
                     }
-                }
-                break;
+                    break;
+                    }
             case this.inputType.geneProduct:
-                break;
+                {
+                    this.httpClient.get(`${environment.annotationApi}/gene`, { params:{'gene':annotationQuery.geneProduct}})
+                        .subscribe((response) => {
+                            const res:any = response;
+                            query.query = {
+                                'bool': {
+                                    'filter': [
+                                        { 'term': { 'chr': res.gene_info.contig } },
+                                        { 'range': { 'pos': { 'gte': res.gene_info.start, 'lte': res.gene_info.end } } }]
+                                }
+                            };
+                            return self.getSnpsPage(query, page);
+                        });
+                    return;
+                    }
             case this.inputType.rsID:
-                //    q = rs_dbSNP151:% 22rs555419020 % 22
-                break;
+                {//    q = rs_dbSNP151:% 22rs555419020 % 22
+                    query.query = {
+                        'bool': {
+                            'filter': [
+                                { 'term': { 'rs_dbSNP151': annotationQuery.rsID } },
+                                ]
+                        }
+                    }
+                    break;
+                }
             case this.inputType.chromosomeList:
                 break;
         }
-
+        //console.log(query);
         return self.getSnpsPage(query, page);
     }
 
     getSnpsPage(query: any, page: number): any {
         const self = this;
         self.loading = true;
-
         query.from = (page - 1) * this.snpResultsSize;
         query.size = this.snpResultsSize;
-
+        console.log(query);
         return this.client.search({
             body: query
         }).then((body) => {
@@ -142,7 +165,7 @@ export class SnpService {
     }
 
     private _connect() {
-        this.client = new Client({ host: environment.annotationApi });
+        this.client = new Client({ host: `${environment.annotationApi}/${environment.dataset}` });
     }
 
 }
