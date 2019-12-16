@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import { tap, finalize } from 'rxjs/operators';
 import { Client } from 'elasticsearch-browser';
 import { SnpPage } from '../models/page';
+import { uniqBy } from 'lodash';
 
 @Injectable({
     providedIn: 'root',
@@ -65,8 +66,12 @@ export class SnpService {
         const self = this;
         self.loading = true;
 
+        let a = uniqBy([...['chr', 'pos', 'ref', 'alt', 'rs_dbSNP151'], ...annotationQuery.source], function (e) {
+            return e;
+        });
+
         const query: any = {
-            '_source': [...['chr', 'pos', 'ref', 'alt', 'rs_dbSNP151'], ...annotationQuery.source],
+            '_source': a
         };
 
         switch (this.inputTypes.selected) {
@@ -80,12 +85,12 @@ export class SnpService {
                         }
                     }
                     break;
-                    }
+                }
             case this.inputType.geneProduct:
                 {
-                    this.httpClient.get(`${environment.annotationApi}/gene`, { params:{'gene':annotationQuery.geneProduct}})
+                    this.httpClient.get(`${environment.annotationApi}/gene`, { params: { 'gene': annotationQuery.geneProduct } })
                         .subscribe((response) => {
-                            const res:any = response;
+                            const res: any = response;
                             query.query = {
                                 'bool': {
                                     'filter': [
@@ -96,14 +101,14 @@ export class SnpService {
                             return self.getSnpsPage(query, page, res.gene_info);
                         });
                     return;
-                    }
+                }
             case this.inputType.rsID:
                 {//    q = rs_dbSNP151:% 22rs555419020 % 22
                     query.query = {
                         'bool': {
                             'filter': [
                                 { 'term': { 'rs_dbSNP151': annotationQuery.rsID } },
-                                ]
+                            ]
                         }
                     }
                     break;
@@ -117,30 +122,30 @@ export class SnpService {
                         }
                     ).map((s) => {
                         var line = s.split("\t");
-                        return `${line[0].replace("chr","")}:${line[1]}${line[3]}>${line[4]}`;
-                        
+                        return `${line[0].replace("chr", "")}:${line[1]}${line[3]}>${line[4]}`;
+
                     });
                     query.ids = ids;
                     //console.log(query);
                     this.httpClient.post(`${environment.annotationApi}/vs-index/ids`, query)
-                     .subscribe((response: any) => {
-                        const snpPage = new SnpPage();
-                        const esData = response.hits.hits as [];
-                        const snpData = esData;
-                        snpPage.query = query;
-                        snpPage.total = 50;
-                        snpPage.size = 50;
-                        snpPage.snps = snpData;
-                        snpPage.url = response.url;
-                        snpPage.source = query._source;
-                        this.snpPage = snpPage;
-                        this.onSnpsChanged.next(snpPage);
-                        self.loading = false;
-                         //console.log(response);
-                     });
+                        .subscribe((response: any) => {
+                            const snpPage = new SnpPage();
+                            const esData = response.hits.hits as [];
+                            const snpData = esData;
+                            snpPage.query = query;
+                            snpPage.total = 50;
+                            snpPage.size = 50;
+                            snpPage.snps = snpData;
+                            snpPage.vcfUrl = response.url;
+                            snpPage.source = query._source;
+                            this.snpPage = snpPage;
+                            this.onSnpsChanged.next(snpPage);
+                            self.loading = false;
+                            //console.log(response);
+                        });
                     return;
                 }
-                
+
         }
         //console.log(query);
         return self.getSnpsPage(query, page);
@@ -181,11 +186,11 @@ export class SnpService {
     }
 
     downloadSnp() {
-        if (!this.query) { 
-            if (this.snpPage.url) {
-                this.onSnpsDownloadReady.next({'url':this.snpPage.url});
+        if (!this.query) {
+            if (this.snpPage.vcfUrl) {
+                this.onSnpsDownloadReady.next({ 'url': this.snpPage.vcfUrl });
             }
-            return; 
+            return;
         }
 
         const url = `${environment.annotationApi}/total_res`;

@@ -11,6 +11,11 @@
           <small>End:</small> {{gene.end}}
         </span>
       </div>
+      <div *ngIf="snpPage?.vcfUrl">
+        <span>
+          Only display the first 50
+        </span>
+      </div>
     </div>
     <span fxFlex></span>
     <button mat-flat-button color="primary" class="noc-rounded-button noc-sm" (click)="download()">
