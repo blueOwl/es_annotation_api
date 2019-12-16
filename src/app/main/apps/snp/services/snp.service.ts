@@ -119,12 +119,13 @@ export class SnpService {
                         return `${line[0]}:${line[1]}${line[3]}>${line[4]}`;
                         
                     });
-                    const source = query['_source'];
-                    const req = {"docs" : ids.map((id) => {
-                        return {"_id" : id, "_source":source};
-                    })}
-                    console.log(req);
-                    break;
+                    query.ids = ids;
+                    console.log(query);
+                    this.httpClient.post(`${environment.annotationApi}/vs-index/ids`, query)
+                     .subscribe((response) => {
+                         console.log(response);
+                     });
+                    return;
                 }
                 
         }
