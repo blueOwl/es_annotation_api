@@ -17,7 +17,7 @@ export class SnpService {
     onSnpChanged: BehaviorSubject<any>;
     onSnpsDownloadReady: BehaviorSubject<any>;
     loading = false;
-    downloadId;
+    query;
 
     private client: Client;
     inputType: any = {
@@ -92,7 +92,7 @@ export class SnpService {
                                         { 'range': { 'pos': { 'gte': res.gene_info.start, 'lte': res.gene_info.end } } }]
                                 }
                             };
-                            return self.getSnpsPage(query, page);
+                            return self.getSnpsPage(query, page, res.gene_info);
                         });
                     return;
                     }
@@ -108,18 +108,37 @@ export class SnpService {
                     break;
                 }
             case this.inputType.chromosomeList:
-                break;
+                {
+                    const ids = annotationQuery.uploadList.ids.split("\n").filter(
+                        (element, index, array) => {
+                            const regex = /^#/;
+                            return !(regex.test(element)) && element;
+                        }
+                    ).map((s) => {
+                        var line = s.split("\t");
+                        return `${line[0]}:${line[1]}${line[3]}>${line[4]}`;
+                        
+                    });
+                    const source = query['_source'];
+                    const req = {"docs" : ids.map((id) => {
+                        return {"_id" : id, "_source":source};
+                    })}
+                    console.log(req);
+                    break;
+                }
+                
         }
         //console.log(query);
         return self.getSnpsPage(query, page);
     }
 
-    getSnpsPage(query: any, page: number): any {
+    getSnpsPage(query: any, page: number, gene?: any): any {
         const self = this;
         self.loading = true;
         query.from = (page - 1) * this.snpResultsSize;
         query.size = this.snpResultsSize;
-        console.log(query);
+        //console.log(query);
+        this.query = query;
         return this.client.search({
             body: query
         }).then((body) => {
@@ -129,7 +148,8 @@ export class SnpService {
                 const snpData = esData.map((snp: any) => {
                     return snp._source;
                 });
-
+                //console.log(gene);
+                snpPage.gene = gene;
                 snpPage.query = query;
                 snpPage.total = body.hits.total.value;
                 snpPage.size = self.snpResultsSize;
@@ -147,11 +167,11 @@ export class SnpService {
     }
 
     downloadSnp() {
-        if (!this.downloadId) { return; }
+        if (!this.query) { return; }
 
-        const url = `${environment.annotationApi}/total_res/${this.downloadId}`;
+        const url = `${environment.annotationApi}/total_res`;
 
-        this.httpClient.get(url)
+        this.httpClient.post(url, this.query)
             .subscribe((response) => {
                 this.onSnpsDownloadReady.next(response);
             });

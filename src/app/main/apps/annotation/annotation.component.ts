@@ -46,7 +46,7 @@ export class AnnotationComponent implements OnInit {
     return new FormGroup({
       chrom: new FormControl(18),
       chromList: new FormControl(),
-      geneProduct: new FormControl('ENSG00000263006'),
+      geneProduct: new FormControl('ZMYND11'),
       rsID: new FormControl('rs559687999'),
       start: new FormControl(1),
       end: new FormControl(500000),
@@ -96,7 +96,7 @@ export class AnnotationComponent implements OnInit {
     }
   }
 
-  downloadConfig() {
+  downloadConfig() {/*
     const annotations = this.checklistSelection.selected as any[];
     const source = annotations.reduce((annotationString, item) => {
       return annotationString + ' ' + item.id
@@ -104,6 +104,15 @@ export class AnnotationComponent implements OnInit {
 
     if (source.length > 0) {
       this.annotationService.downloadConfig(source.trim());
+    } else {
+      this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
+    }*/
+    const annotations = this.checklistSelection.selected as any[];
+    const source = annotations.map((item: AnnotationFlatNode) => {
+      return item.name; //item.leaf ? item.name : false;
+    }, []);
+    if (source.length > 0) {
+      this.annotationService.downloadConfig(JSON.stringify({"_source":source}));
     } else {
       this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
     }

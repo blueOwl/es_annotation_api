@@ -89,15 +89,15 @@ export class SnpTableComponent implements OnInit {
       this.displayedColumns = this.columns.map(c => c.columnDef);
 
 
-      /*   if (snpPage.gene_info) {
+          if (snpPage.gene) {
           this.gene = new Gene()
-          this.gene.uniprotId = snpPage.gene_info.uniprot_id;
-          this.gene.contig = snpPage.gene_info.contig;
-          this.gene.start = snpPage.gene_info.start;
-          this.gene.end = snpPage.gene_info.end;
+          this.gene.gene_id = snpPage.gene.gene_id;
+          this.gene.contig = snpPage.gene.contig;
+          this.gene.start = snpPage.gene.start;
+          this.gene.end = snpPage.gene.end;
         } else {
           this.gene = null
-        } */
+        } 
     }
   }
 
