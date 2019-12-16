@@ -9,4 +9,5 @@ export class SnpPage extends Page {
     source: string[];
     snps: any;
     gene;
+    url: string;
 }

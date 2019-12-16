@@ -16,6 +16,7 @@ export class SnpService {
     onSnpsChanged: BehaviorSubject<SnpPage>;
     onSnpChanged: BehaviorSubject<any>;
     onSnpsDownloadReady: BehaviorSubject<any>;
+    snpPage: SnpPage;
     loading = false;
     query;
 
@@ -26,13 +27,13 @@ export class SnpService {
             label: 'Chromosome'
         }, chromosomeList: {
             id: 2,
-            label: 'Variants List'
+            label: 'VCF File'
         }, geneProduct: {
             id: 3,
             label: 'Gene Product'
         }, rsID: {
             id: 4,
-            label: 'rsID or variant id'
+            label: 'rsID'
         }
     };
 
@@ -116,14 +117,26 @@ export class SnpService {
                         }
                     ).map((s) => {
                         var line = s.split("\t");
-                        return `${line[0]}:${line[1]}${line[3]}>${line[4]}`;
+                        return `${line[0].replace("chr","")}:${line[1]}${line[3]}>${line[4]}`;
                         
                     });
                     query.ids = ids;
-                    console.log(query);
+                    //console.log(query);
                     this.httpClient.post(`${environment.annotationApi}/vs-index/ids`, query)
-                     .subscribe((response) => {
-                         console.log(response);
+                     .subscribe((response: any) => {
+                        const snpPage = new SnpPage();
+                        const esData = response.hits.hits as [];
+                        const snpData = esData;
+                        snpPage.query = query;
+                        snpPage.total = 50;
+                        snpPage.size = 50;
+                        snpPage.snps = snpData;
+                        snpPage.url = response.url;
+                        snpPage.source = query._source;
+                        this.snpPage = snpPage;
+                        this.onSnpsChanged.next(snpPage);
+                        self.loading = false;
+                         //console.log(response);
                      });
                     return;
                 }
@@ -156,7 +169,7 @@ export class SnpService {
                 snpPage.size = self.snpResultsSize;
                 snpPage.snps = snpData;
                 snpPage.source = query._source;
-
+                this.snpPage = snpPage;
                 this.onSnpsChanged.next(snpPage);
             } else {
                 this.onSnpsChanged.next(null);
@@ -168,10 +181,14 @@ export class SnpService {
     }
 
     downloadSnp() {
-        if (!this.query) { return; }
+        if (!this.query) { 
+            if (this.snpPage.url) {
+                this.onSnpsDownloadReady.next({'url':this.snpPage.url});
+            }
+            return; 
+        }
 
         const url = `${environment.annotationApi}/total_res`;
-
         this.httpClient.post(url, this.query)
             .subscribe((response) => {
                 this.onSnpsDownloadReady.next(response);
