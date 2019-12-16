@@ -35,6 +35,9 @@ export class SnpService {
         }, rsID: {
             id: 4,
             label: 'rsID'
+        }, keyword: {
+            id: 5,
+            label: 'Keyword Search'
         }
     };
 
@@ -43,7 +46,8 @@ export class SnpService {
             this.inputType.chromosome,
             this.inputType.chromosomeList,
             this.inputType.geneProduct,
-            this.inputType.rsID
+            this.inputType.rsID,
+            this.inputType.keyword
         ]
     };
 
@@ -145,6 +149,9 @@ export class SnpService {
                         });
                     return;
                 }
+            case this.inputType.keyword:
+                console.log(annotationQuery.keyword)
+                break;
 
         }
         //console.log(query);

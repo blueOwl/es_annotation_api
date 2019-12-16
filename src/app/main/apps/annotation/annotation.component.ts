@@ -48,6 +48,7 @@ export class AnnotationComponent implements OnInit {
       chromList: new FormControl(),
       geneProduct: new FormControl('ZMYND11'),
       rsID: new FormControl('rs559687999'),
+      keyword: new FormControl(),
       start: new FormControl(1),
       end: new FormControl(500000),
       all: new FormControl(false),
@@ -112,7 +113,7 @@ export class AnnotationComponent implements OnInit {
       return item.name; //item.leaf ? item.name : false;
     }, []);
     if (source.length > 0) {
-      this.annotationService.downloadConfig(JSON.stringify({"_source":source}));
+      this.annotationService.downloadConfig(JSON.stringify({ "_source": source }));
     } else {
       this.snpDialogService.openMessageToast('Select at least one annotation from the tree', 'OK');
     }
