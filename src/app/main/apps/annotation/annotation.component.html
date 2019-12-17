@@ -2,7 +2,8 @@
   [formGroup]="annotationForm">
   <div class="noc-section-header" fxLayout="row" fxLayoutAlign="start center">
     <div class="noc-section-heading">
-      Configuration
+      Input Query
+      <small>(Selected: {{snpService.inputTypes?.selected.label}})</small>
     </div>
     <span fxFlex></span>
     <button mat-stroked-button class="noc-rounded-button noc-sm" [matMenuTriggerFor]="configurationMenu">
