@@ -150,8 +150,15 @@ export class SnpService {
                     return;
                 }
             case this.inputType.keyword:
-                console.log(annotationQuery.keyword)
-                break;
+                {
+                    query.query = {
+                            "multi_match" : {
+                                "query" : annotationQuery.keyword,
+                        }
+                    }
+                    break;
+                }
+                
 
         }
         //console.log(query);
