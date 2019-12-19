@@ -48,7 +48,7 @@ export class AnnotationComponent implements OnInit {
       chromList: new FormControl(),
       geneProduct: new FormControl('ZMYND11'),
       rsID: new FormControl('rs559687999'),
-      keyword: new FormControl('nonsynonymous'),
+      keyword: new FormControl('Signaling by GPCR'),
       start: new FormControl(1),
       end: new FormControl(500000),
       all: new FormControl(false),
