@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@ang
 import { AnnotationService } from './services/annotation.service';
 import { SnpDialogService } from '../snp/services/dialog.service';
 import { environment } from 'environments/environment';
+import { SampleVCFFile } from '@noctua.common/data/sample-vcf';
 
 @Component({
   selector: 'ann-annotation',
@@ -59,7 +60,9 @@ export class AnnotationComponent implements OnInit {
     });
   }
 
-
+  addSampleVCF() {
+    this.annotationForm.get('uploadList.ids').patchValue(SampleVCFFile.data);
+  }
 
   clear() {
     this.checklistSelection.clear();

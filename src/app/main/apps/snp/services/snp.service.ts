@@ -125,12 +125,12 @@ export class SnpService {
                             return !(regex.test(element)) && element;
                         }
                     ).map((s) => {
-                        var line = s.split("\t");
-                        return `${line[0].replace("chr", "")}:${line[1]}${line[3]}>${line[4]}`;
-
+                        const line = s.trim().split('\t');
+                        return `${line[0].replace('chr', '')}:${line[1]}${line[3]}>${line[4]}`;
                     });
+
                     query.ids = ids;
-                    //console.log(query);
+                    // console.log(query);
                     this.httpClient.post(`${environment.annotationApi}/vs-index/ids`, query)
                         .subscribe((response: any) => {
                             const snpPage = new SnpPage();
@@ -152,13 +152,13 @@ export class SnpService {
             case this.inputType.keyword:
                 {
                     query.query = {
-                            "multi_match" : {
-                                "query" : annotationQuery.keyword,
+                        "multi_match": {
+                            "query": annotationQuery.keyword,
                         }
                     }
                     break;
                 }
-                
+
 
         }
         //console.log(query);
