@@ -71,7 +71,7 @@ export class AnnotationComponent implements OnInit {
   submit() {
     const query = this.annotationForm.value;
     const annotations = this.checklistSelection.selected as any[];
-    const source = annotations.map((item: AnnotationFlatNode) => {
+    const source = annotations.filter(item => item.leaf).map((item: AnnotationFlatNode) => {
       return item.name; //item.leaf ? item.name : false;
     }, []);
 
