@@ -35,7 +35,8 @@ export class AnnotationService {
 */
     getAnnotationList() {
         let api = environment.annotationApi;
-        this.httpClient.get<Annotation[]>(`${api}/anno_tree/HRC`)
+        let dataset = environment.dataset;
+        this.httpClient.get<Annotation[]>(`${api}/${dataset}/anno_tree`)
             .subscribe((response: Annotation[]) => {
                 this.annotation = response['header_tree_array'];
                 this.annotationNodes = this._buildAnnotationTree(this.annotation);

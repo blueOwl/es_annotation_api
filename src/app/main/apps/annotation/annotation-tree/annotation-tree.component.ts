@@ -80,6 +80,7 @@ export class AnnotationTreeComponent implements OnInit {
       node.name,
       node.detail,
       node.parent_id,
+      node.leaf,
       !!node.children,
       level);
   }

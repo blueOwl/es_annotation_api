@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 import { NoctuaMenuService } from '@noctua.common/services/noctua-menu.service';
 
 import { SnpService } from './../services/snp.service'
-import { Page } from '../models/page';
+import { SnpPage } from '../models/page';
 import { Gene } from '../models/gene';
 import { SnpDialogService } from '../services/dialog.service';
 import { MatPaginator } from '@angular/material';
@@ -21,11 +21,10 @@ import 'rxjs/add/observable/of';
   styleUrls: ['./snp-table.component.scss']
 })
 export class SnpTableComponent implements OnInit {
-  page = new Page();
+  snpPage: SnpPage;
   gene;
   genes: any[] = [];
   columns: any[] = [];
-  snp: any;
 
   loadingIndicator: boolean;
   reorderable: boolean;
@@ -33,7 +32,7 @@ export class SnpTableComponent implements OnInit {
   loadingSpinner: any = {
     color: 'primary',
     mode: 'indeterminate'
-  }
+  };
 
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
@@ -60,31 +59,28 @@ export class SnpTableComponent implements OnInit {
     const self = this;
 
     this.columns = [];
-    this.page.pageNumber = 0;
-    this.page.size = 50;
 
     this.snpService.onSnpsChanged
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(snp => {
-        this.setSnpPage(snp);
+      .subscribe((snpPage: SnpPage) => {
+        if (snpPage) {
+          this.setSnpPage(snpPage);
+        }
       });
 
     this.snpService.onSnpsDownloadReady
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((res) => {
         if (res && res.url) {
-          this.snpDialogService.openDownloadToast(res)
+          this.snpDialogService.openDownloadToast(res);
         }
       });
   }
 
-  setSnpPage(snp) {
-    if (snp.headers) {
-      this.snp = snp;
-      // this.snpService.downloadId = this.snp.page_id ? this.snp.page_id : null;
-      //  this.page.pageNumber = this.snp.page_info.page_num - 1;
-      // this.page.totalElements = this.snp.page_info.total_page
-      this.columns = snp.headers.map((header) => (
+  setSnpPage(snpPage: SnpPage) {
+    if (snpPage.source) {
+      this.snpPage = snpPage;
+      this.columns = snpPage.source.map((header) => (
         {
           columnDef: header,
           cell: (element: any) => `${element[header]}`
@@ -92,31 +88,22 @@ export class SnpTableComponent implements OnInit {
 
       this.displayedColumns = this.columns.map(c => c.columnDef);
 
-      this.genes = snp.data
-      /*    this.genes = _.map(snp.data, (srcRow) => {
-           return srcRow.reduce((destRow, item, i) => {
-             destRow[snp.headers[i]] = item
-             return destRow
-           }, {});
-         }); */
 
-      if (snp.gene_info) {
-        this.gene = new Gene()
-        this.gene.uniprotId = snp.gene_info.uniprot_id;
-        this.gene.contig = snp.gene_info.contig;
-        this.gene.start = snp.gene_info.start;
-        this.gene.end = snp.gene_info.end;
-      } else {
-        this.gene = null
-      }
+          if (snpPage.gene) {
+          this.gene = new Gene()
+          this.gene.gene_id = snpPage.gene.gene_id;
+          this.gene.contig = snpPage.gene.contig;
+          this.gene.start = snpPage.gene.start;
+          this.gene.end = snpPage.gene.end;
+        } else {
+          this.gene = null
+        } 
     }
   }
 
-
-
   setPage($event) {
-    if (this.snp && this.snp.page_id) {
-      this.snpService.getSnpPage(this.snp.page_id, $event.pageIndex + 1)
+    if (this.snpPage) {
+      this.snpService.getSnpsPage(this.snpPage.query, $event.pageIndex + 1);
     }
   }
 

@@ -1,10 +1,13 @@
 export class Page {
-    //The number of elements in the page
-    size: number = 0;
-    //The total number of elements
-    totalElements: number = 0;
-    //The total number of pages
-    totalPages: number = 0;
-    //The current page number
-    pageNumber: number = 0;
+    size = 0;
+    total = 0;
+    pageNumber = 0;
+}
+
+export class SnpPage extends Page {
+    query;
+    source: string[];
+    snps: any;
+    gene;
+    vcfUrl: string;
 }
