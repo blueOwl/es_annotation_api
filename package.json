@@ -72,7 +72,7 @@
     "jquery": "^3.4.1",
     "jsonformatter": "^0.7.0",
     "jsplumb": "^2.12.6",
-    "lodash": "4.17.15",
+    "lodash": "4.17.21",
     "material-steppers": "^2.0.0",
     "minerva-requests": "0.0.17",
     "moment": "2.24.0",
